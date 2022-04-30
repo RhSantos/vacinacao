@@ -14,8 +14,8 @@ public class Program {
         System.out.println(endereco);
         System.out.println(enderecos);
         Endereco end = new Endereco
-            ("Rua Luiz Bastos do Prado","Gravataí", 
-            "RS",482,"Centro", "94010-012");
-        endDao.inserir(end);
+            (3,"Rua Luiz Bastos do Prado","Gravataí", 
+            "RS",482,"Centro", "94010-014");
+        endDao.atualizar(end);
     }
 }

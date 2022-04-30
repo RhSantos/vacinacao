@@ -63,13 +63,48 @@ public class EnderecoDaoJDBC implements EnderecoDao{
 
     @Override
     public void atualizar(Endereco endereco) {
-        // TODO Auto-generated method stub
-        
+        PreparedStatement st = null;
+        try {   
+            st = conn.prepareStatement(
+                "UPDATE endereco "+
+                "SET "+
+                "logradouro = ?,cidade = ?,estado = ?,numero = ?,"+
+                "bairro = ?,complemento = ?,cep = ? "+
+                "WHERE endereco = ?");
+
+            st.setString(1, endereco.getLogradouro());
+            st.setString(2, endereco.getCidade());
+            st.setString(3, endereco.getEstado());
+            st.setInt(4, endereco.getNumero());
+            st.setString(5, endereco.getBairro());
+            st.setString(6, endereco.getComplemento());
+            st.setString(7, endereco.getCep());
+            st.setInt(8, endereco.getIdEndereco());
+            
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+        }
     }
 
     @Override
     public void deletar(Integer id) {
-        // TODO Auto-generated method stub
+
+        PreparedStatement st = null;
+
+        try {   
+            st = conn.prepareStatement("DELETE FROM endereco WHERE Id = ?");
+            st.setInt(1, id);
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+        }
         
     }
 
