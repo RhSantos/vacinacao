@@ -76,9 +76,11 @@ public class Unidade implements Serializable {
         Integer numero = sc.nextInt();
         sc.next();
         String bairro = sc.next();
+        String complemento = sc.next();
         String cep = sc.next();
 
-        endereco = new Endereco(logradouro, cidade, estado, numero, bairro, cep);
+        endereco = new Endereco
+        (logradouro, cidade, estado, numero, bairro, complemento, cep);
 
         sc.close();
         return endereco;

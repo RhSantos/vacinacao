@@ -24,26 +24,23 @@ public class Endereco implements Serializable {
         this.cep = cep;
     }
 
-    public Endereco(Integer idEndereco, String logradouro, String cidade, String estado, Integer numero,
-            String bairro, String cep) {
-        this.idEndereco = idEndereco;
-        this.logradouro = logradouro;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.numero = numero;
-        this.bairro = bairro;
-        complemento = "";
-        this.cep = cep;
-    }
-
-    public Endereco(String logradouro, String cidade, String estado, Integer numero, String bairro,
+    public Endereco(String logradouro, String cidade, String estado, Integer numero, String bairro, String complemento,
             String cep) {
         this.logradouro = logradouro;
         this.cidade = cidade;
         this.estado = estado;
         this.numero = numero;
         this.bairro = bairro;
-        complemento = "";
+        this.complemento = complemento;
+        this.cep = cep;
+    }
+
+    public Endereco(String logradouro, String cidade, String estado, Integer numero, String bairro, String cep) {
+        this.logradouro = logradouro;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.numero = numero;
+        this.bairro = bairro;
         this.cep = cep;
     }
 
@@ -109,6 +106,13 @@ public class Endereco implements Serializable {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    @Override
+    public String toString() {
+        return "Endereco [bairro=" + bairro + ", cep=" + cep + ", cidade=" + cidade + ", complemento=" + complemento
+                + ", estado=" + estado + ", idEndereco=" + idEndereco + ", logradouro=" + logradouro + ", numero="
+                + numero + "]";
     }
 
 }
