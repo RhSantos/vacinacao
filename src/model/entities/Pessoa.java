@@ -35,6 +35,9 @@ public class Pessoa implements Serializable {
         this.endereco = criarEndereco();
     }
     
+    public Pessoa() {
+    }
+
     public Integer getId() {
         return id;
     }
@@ -88,10 +91,13 @@ public class Pessoa implements Serializable {
         endereco = new Endereco
         (logradouro, cidade, estado, numero, bairro, complemento, cep);
 
-
-
         sc.close();
         return endereco;
     }
 
+    @Override
+    public String toString() {
+        return "Pessoa [cpf=" + cpf + ", endereco=" + endereco + ", id=" + id + ", nome=" + nome + "]";
+    }
+    
 }
