@@ -2,27 +2,36 @@ package model.entities;
 
 import java.io.Serializable;
 
+import model.dao.DaoFactory;
+import model.dao.LoteDao;
+import model.dao.UnidadeDao;
+
 public class Estoque implements Serializable{
-    private Integer unidade;
+    private Unidade unidade;
     private Lote lote;
     private Integer quantidade;
 
-    public Estoque(Integer unidade, Lote lote, Integer quantidade) {
+    public Estoque(){}
+
+    public Estoque(Unidade unidade, Lote lote, Integer quantidade) {
         this.unidade = unidade;
         this.lote = lote;
         this.quantidade = quantidade;
     }
 
-    public Estoque(Lote lote, Integer quantidade) {
-        this.lote = lote;
+    public Estoque(Integer idUnidade,Integer idLote,Integer quantidade) {
+        LoteDao loteDao = DaoFactory.createLoteDao();
+        UnidadeDao uniDao = DaoFactory.createUnidadeDao();
+        this.unidade = uniDao.procurarPorId(idUnidade);
+        this.lote = loteDao.procurarPorId(idLote);
         this.quantidade = quantidade;
     }
 
-    public Integer getUnidade() {
+    public Unidade getUnidade() {
         return unidade;
     }
 
-    public void setUnidade(Integer unidade) {
+    public void setUnidade(Unidade unidade) {
         this.unidade = unidade;
     }
 
@@ -50,4 +59,8 @@ public class Estoque implements Serializable{
         this.lote = lote;
     }
 
+    @Override
+    public String toString() {
+        return "Estoque [lote=" + lote + ", quantidade=" + quantidade + ", unidade=" + unidade + "]";
+    }
 }

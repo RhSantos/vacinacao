@@ -236,7 +236,7 @@ public class UnidadeDaoJDBC implements UnidadeDao{
         }
     }
 
-    private Unidade instanciarUnidade(ResultSet rs,Endereco endereco) throws SQLException {
+    public static Unidade instanciarUnidade(ResultSet rs,Endereco endereco) throws SQLException {
         Unidade unidade = new Unidade();
         unidade.setId(rs.getInt("unidade"));
         unidade.setNome(rs.getString("nome"));
@@ -245,7 +245,7 @@ public class UnidadeDaoJDBC implements UnidadeDao{
         return unidade;
 }
 
-    private Endereco instanciarEndereco(ResultSet rs) throws SQLException {
+    public static Endereco instanciarEndereco(ResultSet rs) throws SQLException {
         Endereco endereco = new Endereco();
         endereco.setId(rs.getInt("endereco"));
         endereco.setLogradouro(rs.getString("logradouro"));

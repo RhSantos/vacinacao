@@ -173,7 +173,7 @@ public class LoteDaoJDBC implements LoteDao{
         }
     }
     
-    private Lote instanciarLote(ResultSet rs) throws SQLException {
+    public static Lote instanciarLote(ResultSet rs) throws SQLException {
         Lote lote = new Lote();
         lote.setLote(rs.getInt("lote"));
         lote.setNome(rs.getString("nome"));

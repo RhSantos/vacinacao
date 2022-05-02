@@ -21,6 +21,14 @@ public class Vacinado {
         this.dataVacinacao = dataVacinacao;
     }
 
+    public Vacinado(Pessoa pessoa, Unidade unidade, Lote vacina, Movimento movimento, Date dataVacinacao) {
+        this.pessoa = pessoa;
+        this.unidade = unidade;
+        this.vacina = vacina;
+        this.movimento = movimento;
+        this.dataVacinacao = dataVacinacao;
+    }
+
     public Integer getDose() {
         return dose;
     }

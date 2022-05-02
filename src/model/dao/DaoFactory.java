@@ -20,4 +20,8 @@ public class DaoFactory {
         return new LoteDaoJDBC(DB.getConnection());
     }
 
+    public static EstoqueDao createEstoqueDao(){
+        return new EstoqueDaoJDBC(DB.getConnection());
+    }
+
 }
