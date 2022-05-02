@@ -35,6 +35,9 @@ public class Unidade implements Serializable {
         this.endereco = criarEndereco();
     }
 
+    public Unidade() {
+    }
+
     public Integer getId() {
         return id;
     }
@@ -85,4 +88,10 @@ public class Unidade implements Serializable {
         sc.close();
         return endereco;
     }
+
+    @Override
+    public String toString() {
+        return "Unidade [centro=" + centro + ", endereco=" + endereco + ", id=" + id + ", nome=" + nome + "]";
+    }
+
 }

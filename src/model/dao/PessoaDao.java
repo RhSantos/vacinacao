@@ -10,6 +10,7 @@ public interface PessoaDao {
     void atualizar(Pessoa pessoa);
     void deletar(Integer id);
     Pessoa procurarPorId(Integer id);
+    Pessoa procurarPorCpf(String cpf);
     Pessoa procurarPorEndereco(Endereco endereco);
     List<Pessoa> listar();
 }

@@ -132,6 +132,33 @@ public class PessoaDaoJDBC implements PessoaDao{
     }
 
     @Override
+    public Pessoa procurarPorCpf(String cpf){
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try{
+            st = conn.prepareStatement(
+                "SELECT * "+
+                "FROM cadastro_pessoa INNER JOIN endereco "+
+                "ON cadastro_pessoa.endereco = endereco.endereco "+
+                "WHERE cadastro_pessoa.cpf  = ?");
+            st.setString(1, cpf);
+            rs = st.executeQuery();
+            if(rs.next()){
+                Endereco endereco = instanciarEndereco(rs);
+                Pessoa pessoa = instanciarPessoa(rs,endereco);
+                return pessoa;
+            }
+            return null;
+        } catch(SQLException e){
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+
+    @Override
     public Pessoa procurarPorEndereco(Endereco endereco) {
         PreparedStatement st = null;
         ResultSet rs = null;

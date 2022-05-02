@@ -11,4 +11,9 @@ public class DaoFactory {
     public static PessoaDao createPessoaDao(){
         return new PessoaDaoJDBC(DB.getConnection());
     }
+
+    public static UnidadeDao createUnidadeDao(){
+        return new UnidadeDaoJDBC(DB.getConnection());
+    }
+
 }

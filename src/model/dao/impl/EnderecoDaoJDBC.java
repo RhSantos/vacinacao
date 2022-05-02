@@ -96,7 +96,7 @@ public class EnderecoDaoJDBC implements EnderecoDao{
         PreparedStatement st = null;
 
         try {   
-            st = conn.prepareStatement("DELETE FROM endereco WHERE Id = ?");
+            st = conn.prepareStatement("DELETE FROM endereco WHERE endereco = ?");
             st.setInt(1, id);
             st.executeUpdate();
 
@@ -105,7 +105,6 @@ public class EnderecoDaoJDBC implements EnderecoDao{
         } finally {
             DB.closeStatement(st);
         }
-        
     }
 
     @Override
