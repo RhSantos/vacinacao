@@ -37,7 +37,7 @@ public class PessoaDaoJDBC implements PessoaDao{
 
             st.setString(1, pessoa.getNome());
             st.setString(2, pessoa.getCpf());
-            st.setInt(3, pessoa.getEndereco().getIdEndereco());
+            st.setInt(3, pessoa.getEndereco().getId());
 
             int rowsAffected = st.executeUpdate();
 
@@ -71,7 +71,7 @@ public class PessoaDaoJDBC implements PessoaDao{
 
             st.setString(1, pessoa.getNome());
             st.setString(2, pessoa.getCpf());
-            st.setInt(3, pessoa.getEndereco().getIdEndereco());
+            st.setInt(3, pessoa.getEndereco().getId());
             st.setInt(4, pessoa.getId());
             
             st.executeUpdate();
@@ -168,7 +168,7 @@ public class PessoaDaoJDBC implements PessoaDao{
                 "SELECT cadastro_pessoa.* FROM cadastro_pessoa "+
                 "INNER JOIN endereco ON cadastro_pessoa.endereco = endereco.endereco "+
                 "WHERE endereco.endereco = ? ORDER BY bairro");
-            st.setInt(1, endereco.getIdEndereco());
+            st.setInt(1, endereco.getId());
 
             rs = st.executeQuery();
 
@@ -223,7 +223,7 @@ public class PessoaDaoJDBC implements PessoaDao{
 
     private Endereco instanciarEndereco(ResultSet rs) throws SQLException {
         Endereco endereco = new Endereco();
-        endereco.setIdEndereco(rs.getInt("endereco"));
+        endereco.setId(rs.getInt("endereco"));
         endereco.setLogradouro(rs.getString("logradouro"));
         endereco.setCidade(rs.getString("cidade"));
         endereco.setEstado(rs.getString("estado"));

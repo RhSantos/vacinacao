@@ -20,11 +20,11 @@ USE `projeto-vacinacao` ;
 CREATE TABLE IF NOT EXISTS `projeto-vacinacao`.`endereco` (
   `endereco` INT NOT NULL AUTO_INCREMENT,
   `logradouro` VARCHAR(50) NOT NULL,
-  `numero` INT NOT NULL,
-  `complemento` VARCHAR(50) NULL,
-  `bairro` VARCHAR(50) NOT NULL,
   `cidade` VARCHAR(30) NOT NULL,
   `estado` CHAR(2) NOT NULL,
+  `numero` INT NOT NULL,
+  `bairro` VARCHAR(50) NOT NULL,
+  `complemento` VARCHAR(50) NULL,
   `cep` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`endereco`))
 ENGINE = InnoDB;
@@ -35,9 +35,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `projeto-vacinacao`.`cadastro_unidade` (
   `unidade` INT NOT NULL AUTO_INCREMENT,
-  `endereco` INT NOT NULL,
   `nome` VARCHAR(50) NOT NULL,
   `centro` TINYINT NOT NULL,
+  `endereco` INT NOT NULL,
   PRIMARY KEY (`unidade`),
   INDEX `fk_unidade_endereco_idx` (`endereco` ASC) VISIBLE,
   CONSTRAINT `fk_unidade_endereco`
@@ -53,9 +53,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `projeto-vacinacao`.`cadastro_pessoa` (
   `pessoa` INT NOT NULL AUTO_INCREMENT,
-  `endereco` INT NOT NULL,
   `nome` VARCHAR(50) NOT NULL,
   `cpf` VARCHAR(20) NOT NULL,
+  `endereco` INT NOT NULL,
   PRIMARY KEY (`pessoa`),
   UNIQUE INDEX `cpf_UNIQUE` (`cpf` ASC) VISIBLE,
   INDEX `fk_pessoa_endereco_idx` (`endereco` ASC) VISIBLE,
@@ -74,39 +74,12 @@ CREATE TABLE IF NOT EXISTS `projeto-vacinacao`.`lote` (
   `lote` VARCHAR(10) NOT NULL,
   `nome` VARCHAR(30) NOT NULL,
   `data_vencimento` DATETIME NOT NULL,
-  PRIMARY KEY (`lote`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `projeto-vacinacao`.`movimento_estoque`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `projeto-vacinacao`.`movimento_estoque` (
-  `unidade` INT NOT NULL,
-  `lote` VARCHAR(10) NOT NULL,
-  `movimento` INT NOT NULL,
-  `pessoa` INT NULL,
-  `quantidade` INT NOT NULL,
-  `tipo_movimento` ENUM('Entrada', 'Saida') NOT NULL,
-  `tipo_transacao` ENUM('rec', 'tra', 'apl') NOT NULL,
-  `data_movimento` DATETIME NOT NULL,
-  PRIMARY KEY (`unidade`, `lote`, `movimento`),
-  INDEX `fk_cadastro_unidade_movimento_idx` (`unidade` ASC) VISIBLE,
-  INDEX `fk_cadastro_populacao_movimento_idx` (`pessoa` ASC) VISIBLE,
-  INDEX `fk_lote_movimento_idx` (`lote` ASC) VISIBLE,
-  CONSTRAINT `fk_cadastro_unidade_movimento`
-    FOREIGN KEY (`unidade`)
-    REFERENCES `projeto-vacinacao`.`cadastro_unidade` (`unidade`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_cadastro_pessoa_movimento`
-    FOREIGN KEY (`pessoa`)
-    REFERENCES `projeto-vacinacao`.`cadastro_pessoa` (`pessoa`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_lote_movimento`
-    FOREIGN KEY (`lote`)
-    REFERENCES `projeto-vacinacao`.`lote` (`lote`)
+  `endereco` INT NOT NULL,
+  PRIMARY KEY (`lote`),
+  INDEX `fk_lote_endereco_idx` (`endereco` ASC) VISIBLE,
+  CONSTRAINT `fk_lote_endereco`
+    FOREIGN KEY (`endereco`)
+    REFERENCES `projeto-vacinacao`.`endereco` (`endereco`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -135,24 +108,61 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `projeto-vacinacao`.`vacinados`
+-- Table `projeto-vacinacao`.`movimento_estoque`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `projeto-vacinacao`.`vacinados` (
+CREATE TABLE IF NOT EXISTS `projeto-vacinacao`.`movimento_estoque` (
+  `movimento` INT NOT NULL,
   `unidade` INT NOT NULL,
   `lote` VARCHAR(10) NOT NULL,
-  `dose` INT NOT NULL,
-  `pessoa` INT NOT NULL,
-  `movimento` INT NOT NULL,
-  `data_aplicacao` DATETIME NOT NULL,
-  PRIMARY KEY (`unidade`, `lote`, `dose`),
-  INDEX `fk_unidade_vacinados_idx` (`unidade` ASC) VISIBLE,
-  INDEX `fk_lote_vacinados_idx` (`lote` ASC) VISIBLE,
-  INDEX `fk_movimento_vacinados_idx` (`movimento` ASC) VISIBLE,
-  CONSTRAINT `fk_pessoa_vacinados`
+  `pessoa` INT NULL,
+  `quantidade` INT NOT NULL,
+  `tipo_movimento` ENUM('Entrada', 'Saida') NOT NULL,
+  `tipo_transacao` ENUM('rec', 'tra', 'apl') NOT NULL,
+  `data_movimento` DATETIME NOT NULL,
+  `unidade_transfer` INT NULL,
+  PRIMARY KEY (`movimento`, `unidade`, `lote`),
+  INDEX `fk_cadastro_unidade_movimento_idx` (`unidade` ASC) VISIBLE,
+  INDEX `fk_cadastro_populacao_movimento_idx` (`pessoa` ASC) VISIBLE,
+  INDEX `fk_lote_movimento_idx` (`lote` ASC) VISIBLE,
+  INDEX `fk_movimento_estoque_idx` (`unidade_transfer` ASC) VISIBLE,
+  CONSTRAINT `fk_cadastro_unidade_movimento`
+    FOREIGN KEY (`unidade`)
+    REFERENCES `projeto-vacinacao`.`cadastro_unidade` (`unidade`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cadastro_pessoa_movimento`
     FOREIGN KEY (`pessoa`)
     REFERENCES `projeto-vacinacao`.`cadastro_pessoa` (`pessoa`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
+  CONSTRAINT `fk_lote_movimento`
+    FOREIGN KEY (`lote`)
+    REFERENCES `projeto-vacinacao`.`lote` (`lote`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_movimento_estoque`
+    FOREIGN KEY (`unidade_transfer`)
+    REFERENCES `projeto-vacinacao`.`estoque_vacinas` (`unidade`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `projeto-vacinacao`.`vacinados`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `projeto-vacinacao`.`vacinados` (
+  `dose` INT NOT NULL,
+  `pessoa` INT NOT NULL,
+  `unidade` INT NOT NULL,
+  `lote` VARCHAR(10) NOT NULL,
+  `movimento` INT NOT NULL,
+  `data_aplicacao` DATETIME NOT NULL,
+  PRIMARY KEY (`dose`, `pessoa`),
+  INDEX `fk_lote_vacinados_idx` (`lote` ASC) VISIBLE,
+  INDEX `fk_unidade_vacinados_idx` (`unidade` ASC) VISIBLE,
+  INDEX `fk_movimento_vacinados_idx` (`movimento` ASC) VISIBLE,
+  INDEX `fk_pessoa_vacinados_idx` (`pessoa` ASC) VISIBLE,
   CONSTRAINT `fk_unidade_vacinados`
     FOREIGN KEY (`unidade`)
     REFERENCES `projeto-vacinacao`.`movimento_estoque` (`unidade`)
@@ -166,6 +176,11 @@ CREATE TABLE IF NOT EXISTS `projeto-vacinacao`.`vacinados` (
   CONSTRAINT `fk_movimento_vacinados`
     FOREIGN KEY (`movimento`)
     REFERENCES `projeto-vacinacao`.`movimento_estoque` (`movimento`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pessoa_vacinados`
+    FOREIGN KEY (`pessoa`)
+    REFERENCES `projeto-vacinacao`.`cadastro_pessoa` (`pessoa`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

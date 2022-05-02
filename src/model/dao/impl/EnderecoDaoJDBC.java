@@ -47,7 +47,7 @@ public class EnderecoDaoJDBC implements EnderecoDao{
                 ResultSet rs = st.getGeneratedKeys();
                 if(rs.next()){
                     int id = rs.getInt(1);
-                    endereco.setIdEndereco(id);
+                    endereco.setId(id);
                 }
                 DB.closeResultSet(rs);
             } else {
@@ -79,7 +79,7 @@ public class EnderecoDaoJDBC implements EnderecoDao{
             st.setString(5, endereco.getBairro());
             st.setString(6, endereco.getComplemento());
             st.setString(7, endereco.getCep());
-            st.setInt(8, endereco.getIdEndereco());
+            st.setInt(8, endereco.getId());
             
             st.executeUpdate();
 

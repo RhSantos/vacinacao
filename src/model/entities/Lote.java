@@ -6,16 +6,19 @@ public class Lote {
     private String lote;
     private String nome;
     private Date dataVencimento;
+    private Endereco endereco;
     
-    public Lote(String lote, String nome, Date dataVencimento) {
+    public Lote(String lote, String nome, Date dataVencimento,Endereco endereco) {
         this.lote = lote;
         this.nome = nome;
         this.dataVencimento = dataVencimento;
+        this.endereco = endereco;
     }
 
-    public Lote(String nome, Date dataVencimento) {
+    public Lote(String nome, Date dataVencimento,Endereco endereco) {
         this.nome = nome;
         this.dataVencimento = dataVencimento;
+        this.endereco = endereco;
     }
 
     public String getNome() {
@@ -41,7 +44,13 @@ public class Lote {
     public void setDataVencimento(Date dataVencimento) {
         this.dataVencimento = dataVencimento;
     }
-    
-    
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
     
 }

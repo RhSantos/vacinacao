@@ -3,7 +3,7 @@ package model.entities;
 import java.io.Serializable;
 
 public class Endereco implements Serializable {
-    private Integer idEndereco;
+    private Integer id;
     private String logradouro;
     private String cidade;
     private String estado;
@@ -12,9 +12,9 @@ public class Endereco implements Serializable {
     private String complemento;
     private String cep;
 
-    public Endereco(Integer idEndereco, String logradouro, String cidade, String estado, Integer numero, String bairro,
+    public Endereco(Integer id, String logradouro, String cidade, String estado, Integer numero, String bairro,
             String complemento, String cep) {
-        this.idEndereco = idEndereco;
+        this.id = id;
         this.logradouro = logradouro;
         this.cidade = cidade;
         this.estado = estado;
@@ -24,9 +24,9 @@ public class Endereco implements Serializable {
         this.cep = cep;
     }
 
-    public Endereco(Integer idEndereco, String logradouro, String cidade, String estado, Integer numero, String bairro,
+    public Endereco(Integer id, String logradouro, String cidade, String estado, Integer numero, String bairro,
             String cep) {
-        this.idEndereco = idEndereco;
+        this.id = id;
         this.logradouro = logradouro;
         this.cidade = cidade;
         this.estado = estado;
@@ -58,12 +58,12 @@ public class Endereco implements Serializable {
     public Endereco() {
     }
 
-    public Integer getIdEndereco() {
-        return idEndereco;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdEndereco(Integer idEndereco) {
-        this.idEndereco = idEndereco;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getLogradouro() {
@@ -125,7 +125,7 @@ public class Endereco implements Serializable {
     @Override
     public String toString() {
         return "Endereco [bairro=" + bairro + ", cep=" + cep + ", cidade=" + cidade + ", complemento=" + complemento
-                + ", estado=" + estado + ", idEndereco=" + idEndereco + ", logradouro=" + logradouro + ", numero="
+                + ", estado=" + estado + ", id=" + id + ", logradouro=" + logradouro + ", numero="
                 + numero + "]";
     }
 

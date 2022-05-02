@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import db.DB;
@@ -35,7 +36,7 @@ public class UnidadeDaoJDBC implements UnidadeDao{
 
             st.setString(1, unidade.getNome());
             st.setBoolean(2, unidade.getCentro());
-            st.setInt(3, unidade.getEndereco().getIdEndereco());
+            st.setInt(3, unidade.getEndereco().getId());
 
             int rowsAffected = st.executeUpdate();
 
@@ -69,7 +70,7 @@ public class UnidadeDaoJDBC implements UnidadeDao{
 
             st.setString(1, unidade.getNome());
             st.setBoolean(2, unidade.getCentro());
-            st.setInt(3, unidade.getEndereco().getIdEndereco());
+            st.setInt(3, unidade.getEndereco().getId());
             st.setInt(4, unidade.getId());
             
             st.executeUpdate();
@@ -83,32 +84,130 @@ public class UnidadeDaoJDBC implements UnidadeDao{
 
     @Override
     public void deletar(Integer id) {
-        // TODO Auto-generated method stub
-        
+        PreparedStatement st = null;
+
+        try {
+            st = conn.prepareStatement(
+                "DELETE FROM cadastro_unidade "+
+                "WHERE unidade = ?");
+            
+            st.setInt(1, id);
+            
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+        } 
     }
 
     @Override
     public Unidade procurarPorId(Integer id) {
-        // TODO Auto-generated method stub
-        return null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try{
+            st = conn.prepareStatement(
+                "SELECT * "+
+                "FROM cadastro_unidade INNER JOIN endereco "+
+                "ON cadastro_unidade.endereco = endereco.endereco "+
+                "WHERE cadastro_unidade.unidade = ?");
+            st.setInt(1, id);
+            rs = st.executeQuery();
+            if(rs.next()){
+                Endereco endereco = instanciarEndereco(rs);
+                Unidade unidade = instanciarUnidade(rs,endereco);
+                return unidade;
+            }
+            return null;
+        } catch(SQLException e){
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     @Override
     public Unidade procurarPorNome(String nome) {
-        // TODO Auto-generated method stub
-        return null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try{
+            st = conn.prepareStatement(
+                "SELECT * "+
+                "FROM cadastro_unidade INNER JOIN endereco "+
+                "ON cadastro_unidade.endereco = endereco.endereco "+
+                "WHERE cadastro_unidade.nome  = ?");
+            st.setString(1, nome);
+            rs = st.executeQuery();
+            if(rs.next()){
+                Endereco endereco = instanciarEndereco(rs);
+                Unidade unidade = instanciarUnidade(rs,endereco);
+                return unidade;
+            }
+            return null;
+        } catch(SQLException e){
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     @Override
     public Unidade procurarPorEndereco(Endereco endereco) {
-        // TODO Auto-generated method stub
-        return null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try{
+            st = conn.prepareStatement(
+                "SELECT cadastro_unidade.* FROM cadastro_unidade "+
+                "INNER JOIN endereco ON cadastro_unidade.endereco = endereco.endereco "+
+                "WHERE endereco.endereco = ? ORDER BY bairro");
+            st.setInt(1, endereco.getId());
+
+            rs = st.executeQuery();
+
+            if(rs.next()){
+                Unidade unidade = instanciarUnidade(rs,endereco);
+                return unidade;
+            }
+            return null;
+        } catch(SQLException e){
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     @Override
     public List<Unidade> listar() {
-        // TODO Auto-generated method stub
-        return null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try{
+            st = conn.prepareStatement(
+                "SELECT cadastro_unidade.unidade,cadastro_unidade.nome,cadastro_unidade.centro,"+
+                "endereco.* FROM cadastro_unidade "+
+                "INNER JOIN endereco ON cadastro_unidade.endereco = endereco.endereco");
+
+            rs = st.executeQuery();
+            List<Unidade> list = new ArrayList<>();
+            while(rs.next()){
+                Endereco endereco = instanciarEndereco(rs);
+                Unidade unidade = instanciarUnidade(rs,endereco);
+                list.add(unidade);
+            }
+            return list;
+        } catch(SQLException e){
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     @Override
@@ -148,7 +247,7 @@ public class UnidadeDaoJDBC implements UnidadeDao{
 
     private Endereco instanciarEndereco(ResultSet rs) throws SQLException {
         Endereco endereco = new Endereco();
-        endereco.setIdEndereco(rs.getInt("endereco"));
+        endereco.setId(rs.getInt("endereco"));
         endereco.setLogradouro(rs.getString("logradouro"));
         endereco.setCidade(rs.getString("cidade"));
         endereco.setEstado(rs.getString("estado"));
