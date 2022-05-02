@@ -1,24 +1,25 @@
 package model.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Lote {
-    private String lote;
+    private Integer lote;
     private String nome;
     private Date dataVencimento;
-    private Endereco endereco;
     
-    public Lote(String lote, String nome, Date dataVencimento,Endereco endereco) {
+    public Lote(Integer lote, String nome, Date dataVencimento) {
         this.lote = lote;
         this.nome = nome;
         this.dataVencimento = dataVencimento;
-        this.endereco = endereco;
     }
 
-    public Lote(String nome, Date dataVencimento,Endereco endereco) {
+    public Lote(String nome, Date dataVencimento) {
         this.nome = nome;
         this.dataVencimento = dataVencimento;
-        this.endereco = endereco;
+    }
+
+    public Lote() {
     }
 
     public String getNome() {
@@ -29,11 +30,11 @@ public class Lote {
         this.nome = nome;
     }
 
-    public String getLote() {
+    public Integer getLote() {
         return lote;
     }
 
-    public void setLote(String lote) {
+    public void setLote(Integer lote) {
         this.lote = lote;
     }
 
@@ -45,12 +46,12 @@ public class Lote {
         this.dataVencimento = dataVencimento;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+
+    @Override
+    public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return "Lote [dataVencimento=" + sdf.format(dataVencimento) +", lote=" + lote + ", nome=" + nome
+                + "]";
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-    
 }

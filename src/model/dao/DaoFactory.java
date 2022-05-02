@@ -16,4 +16,8 @@ public class DaoFactory {
         return new UnidadeDaoJDBC(DB.getConnection());
     }
 
+    public static LoteDao createLoteDao(){
+        return new LoteDaoJDBC(DB.getConnection());
+    }
+
 }

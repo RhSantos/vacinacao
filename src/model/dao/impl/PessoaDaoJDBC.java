@@ -159,33 +159,6 @@ public class PessoaDaoJDBC implements PessoaDao{
     }
 
     @Override
-    public Pessoa procurarPorEndereco(Endereco endereco) {
-        PreparedStatement st = null;
-        ResultSet rs = null;
-
-        try{
-            st = conn.prepareStatement(
-                "SELECT cadastro_pessoa.* FROM cadastro_pessoa "+
-                "INNER JOIN endereco ON cadastro_pessoa.endereco = endereco.endereco "+
-                "WHERE endereco.endereco = ? ORDER BY bairro");
-            st.setInt(1, endereco.getId());
-
-            rs = st.executeQuery();
-
-            if(rs.next()){
-                Pessoa pessoa = instanciarPessoa(rs,endereco);
-                return pessoa;
-            }
-            return null;
-        } catch(SQLException e){
-            throw new DbException(e.getMessage());
-        } finally {
-            DB.closeStatement(st);
-            DB.closeResultSet(rs);
-        }
-    }
-
-    @Override
     public List<Pessoa> listar() {
         PreparedStatement st = null;
         ResultSet rs = null;
