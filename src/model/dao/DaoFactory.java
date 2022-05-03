@@ -24,4 +24,8 @@ public class DaoFactory {
         return new EstoqueDaoJDBC(DB.getConnection());
     }
 
+    public static MovimentoDao createMovimentoDao(){
+        return new MovimentoDaoJDBC(DB.getConnection());
+    }
+
 }

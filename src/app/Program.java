@@ -2,8 +2,12 @@ package app;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import model.dao.*;
 import model.entities.*;
+import model.enums.TipoMovimento;
+import model.enums.TipoTransacao;
 
 public class Program {
     public static void main(String[] args) throws ParseException {
@@ -16,8 +20,8 @@ public class Program {
         // System.out.println(loteDao.procurarPorNome("CoronaVAC"));
 
         UnidadeDao uniDao = DaoFactory.createUnidadeDao();
-        // PessoaDao pesDao = DaoFactory.createPessoaDao();
-        
+        PessoaDao pesDao = DaoFactory.createPessoaDao();
+        Pessoa pessoa = pesDao.procurarPorId(1);
 
         Endereco endereco = new Endereco
             (1, "Avenida Centenário","Gravataí", "RS", 
@@ -35,9 +39,24 @@ public class Program {
         // System.out.println(estDao.listar());
 
         // System.out.println(estDao.procurarPorLote(lote));
-        System.out.println(estDao.procurarPorUnidade(unidade1));
+        // System.out.println(estDao.procurarPorIdUnidadeLote(1,1));
         // estDao.inserir(estoque);
+        TipoMovimento tipo = TipoMovimento.Entrada;
+        System.out.println(tipo.name());
 
+        MovimentoDao movDao = DaoFactory.createMovimentoDao();
+        Estoque est = estDao.procurarPorIdUnidadeLote(unidade1.getId(), lote.getLote());
+        Estoque est2 = estDao.procurarPorIdUnidadeLote(unidade2.getId(), lote.getLote());
+        Movimento movimento = new Movimento
+            (unidade1, lote,est.getQuantidade(), 
+                TipoMovimento.Entrada, 
+                TipoTransacao.rec,new Date(),unidade2);
+        
+        est2.setQuantidade(est2.getQuantidade() + est.getQuantidade());
+        est.setQuantidade(0);
+        estDao.atualizar(est2);
+        estDao.atualizar(est);
+        movDao.inserir(movimento);
         // estoque.setQuantidade(140);
         // estDao.atualizar(estoque);
 

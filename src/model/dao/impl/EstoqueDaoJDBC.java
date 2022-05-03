@@ -199,5 +199,40 @@ public class EstoqueDaoJDBC implements EstoqueDao{
             DB.closeResultSet(rs);
         }
     }
+
+    @Override
+    public Estoque procurarPorIdUnidadeLote(Integer unidade, Integer lote) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try{
+            st = conn.prepareStatement(
+                "SELECT cadastro_unidade.unidade,cadastro_unidade.nome,cadastro_unidade.centro"+
+                ",endereco.*,lote.*,quantidade " +
+                "FROM estoque_vacinas "+ 
+                "INNER JOIN cadastro_unidade "+
+                "ON estoque_vacinas.unidade = cadastro_unidade.unidade "+
+                "INNER JOIN endereco ON cadastro_unidade.endereco = endereco.endereco "+
+                "INNER JOIN lote "+
+                "ON estoque_vacinas.lote = lote.lote "+
+                "WHERE estoque_vacinas.unidade = ? && estoque_vacinas.lote = ?");
+            st.setInt(1, unidade);
+            st.setInt(2, lote);
+            rs = st.executeQuery();
+
+            if(rs.next()){
+                Endereco endereco = UnidadeDaoJDBC.instanciarEndereco(rs);
+                Unidade uniEst = UnidadeDaoJDBC.instanciarUnidade(rs,endereco);
+                Lote loteEst = LoteDaoJDBC.instanciarLote(rs);
+                return new Estoque(uniEst, loteEst, rs.getInt(3));
+            }
+            return null;
+        } catch(SQLException e){
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
     
 }

@@ -29,6 +29,19 @@ public class Movimento {
         this.dataMovimento = dataMovimento;
     }
 
+    
+
+    public Movimento(Unidade unidade, Lote lote, Pessoa pessoa, Integer quantidade, TipoMovimento tipoMovimento,
+            TipoTransacao tipoTransacao, Date dataMovimento) {
+        this.unidade = unidade;
+        this.lote = lote;
+        this.pessoa = pessoa;
+        this.quantidade = quantidade;
+        this.tipoMovimento = tipoMovimento;
+        this.tipoTransacao = tipoTransacao;
+        this.dataMovimento = dataMovimento;
+    }
+
     public Movimento(Integer id, Unidade unidade,Lote lote,Unidade unidadeTransfer, Integer quantidade,
             TipoMovimento tipoMovimento,TipoTransacao tipoTransacao,Date dataMovimento) {
         this.id = id;
@@ -40,6 +53,19 @@ public class Movimento {
         this.tipoTransacao = tipoTransacao;
         this.dataMovimento = dataMovimento;
     }
+
+    public Movimento(Unidade unidade, Lote lote, Integer quantidade, TipoMovimento tipoMovimento,
+            TipoTransacao tipoTransacao, Date dataMovimento, Unidade unidadeTransfer) {
+        this.unidade = unidade;
+        this.lote = lote;
+        this.quantidade = quantidade;
+        this.tipoMovimento = tipoMovimento;
+        this.tipoTransacao = tipoTransacao;
+        this.dataMovimento = dataMovimento;
+        this.unidadeTransfer = unidadeTransfer;
+    }
+
+
 
     public Integer getId() {
         return id;

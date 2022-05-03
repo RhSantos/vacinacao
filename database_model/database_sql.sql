@@ -104,7 +104,7 @@ ENGINE = InnoDB;
 -- Table `projeto-vacinacao`.`movimento_estoque`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `projeto-vacinacao`.`movimento_estoque` (
-  `movimento` INT NOT NULL,
+  `movimento` INT NOT NULL AUTO_INCREMENT,
   `unidade` INT NOT NULL,
   `lote` INT NOT NULL,
   `pessoa` INT NULL,
