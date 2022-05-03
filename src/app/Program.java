@@ -57,9 +57,10 @@ public class Program {
         // estDao.atualizar(est2);
         // estDao.atualizar(est);
         // movDao.inserir(movimento);
-        movimento.setDataMovimento(new Date());
-        movimento.setId(1);
-        movDao.atualizar(movimento);
+        // movimento.setDataMovimento(new Date());
+        // movimento.setId(1);
+        // movDao.atualizar(movimento);
+        System.out.println(movDao.listar());
         // estoque.setQuantidade(140);
         // estDao.atualizar(estoque);
 

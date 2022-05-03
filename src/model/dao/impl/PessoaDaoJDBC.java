@@ -184,7 +184,7 @@ public class PessoaDaoJDBC implements PessoaDao {
         }
     }
 
-    private Pessoa instanciarPessoa(ResultSet rs, Endereco endereco) throws SQLException {
+    public static Pessoa instanciarPessoa(ResultSet rs, Endereco endereco) throws SQLException {
         Pessoa pessoa = new Pessoa();
         pessoa.setId(rs.getInt("endereco"));
         pessoa.setNome(rs.getString("nome"));
