@@ -52,11 +52,14 @@ public class Program {
                 TipoMovimento.Entrada, 
                 TipoTransacao.rec,new Date(),unidade2);
         
-        est2.setQuantidade(est2.getQuantidade() + est.getQuantidade());
-        est.setQuantidade(0);
-        estDao.atualizar(est2);
-        estDao.atualizar(est);
-        movDao.inserir(movimento);
+        // est2.setQuantidade(est2.getQuantidade() + est.getQuantidade());
+        // est.setQuantidade(0);
+        // estDao.atualizar(est2);
+        // estDao.atualizar(est);
+        // movDao.inserir(movimento);
+        movimento.setDataMovimento(new Date());
+        movimento.setId(1);
+        movDao.atualizar(movimento);
         // estoque.setQuantidade(140);
         // estDao.atualizar(estoque);
 
