@@ -3,8 +3,6 @@ package model.dao;
 import java.util.List;
 
 import model.entities.Estoque;
-import model.entities.Lote;
-import model.entities.Unidade;
 
 public interface EstoqueDao {
     void inserir(Estoque estoque);

@@ -3,10 +3,8 @@ package model.dao;
 import java.util.Date;
 import java.util.List;
 
-import model.entities.Lote;
+
 import model.entities.Movimento;
-import model.entities.Pessoa;
-import model.entities.Unidade;
 import model.enums.TipoMovimento;
 
 public interface MovimentoDao {
