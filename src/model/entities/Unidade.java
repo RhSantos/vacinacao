@@ -70,17 +70,27 @@ public class Unidade implements Serializable {
         this.centro = centro;
     }
 
-    public Endereco criarEndereco() {
+    public static Endereco criarEndereco() {
         Scanner sc = new Scanner(System.in);
         Endereco endereco;
+        System.out.println("===CADASTRO DE ENDEREÇO===");
+        System.out.print("Digite o Logradouro: ");
         String logradouro = sc.nextLine();
-        String cidade = sc.next();
-        String estado = sc.next();
+        System.out.print("Digite a Cidade: ");
+        String cidade = sc.nextLine();
+        System.out.print("Digite o Estado (SIGLA): ");
+        String estado = sc.nextLine();
+        estado = estado.toLowerCase();
+        System.out.print("Digite o Número: ");
         Integer numero = sc.nextInt();
-        sc.next();
-        String bairro = sc.next();
-        String complemento = sc.next();
-        String cep = sc.next();
+        System.out.print("Digite o Bairro: ");
+        sc.nextLine();
+        String bairro = sc.nextLine();
+        System.out.print("Digite o Complemento: ");
+        String complemento = sc.nextLine();
+        if(complemento == "") complemento = null;
+        System.out.print("Digite o CEP (Com Pontuação): ");
+        String cep = sc.nextLine();
 
         endereco = new Endereco
         (logradouro, cidade, estado, numero, bairro, complemento, cep);
