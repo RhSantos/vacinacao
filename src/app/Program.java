@@ -45,8 +45,8 @@ public class Program {
         System.out.println(tipo.name());
 
         MovimentoDao movDao = DaoFactory.createMovimentoDao();
-        Estoque est = estDao.procurarPorIdUnidadeLote(unidade1.getId(), lote.getLote());
-        Estoque est2 = estDao.procurarPorIdUnidadeLote(unidade2.getId(), lote.getLote());
+        Estoque est = estDao.procurarPorUnidadeLote(unidade1.getId(), lote.getLote());
+        Estoque est2 = estDao.procurarPorUnidadeLote(unidade2.getId(), lote.getLote());
         Movimento movimento = new Movimento
             (unidade1, lote,est.getQuantidade(), 
                 TipoMovimento.Entrada, 
@@ -60,7 +60,7 @@ public class Program {
         // movimento.setDataMovimento(new Date());
         // movimento.setId(1);
         // movDao.atualizar(movimento);
-        System.out.println(movDao.listar());
+        System.out.println(movDao.procurarPorDataMovimento(sdf.parse("03/05/2022")));
         // estoque.setQuantidade(140);
         // estDao.atualizar(estoque);
 

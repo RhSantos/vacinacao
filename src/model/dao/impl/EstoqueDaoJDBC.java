@@ -100,7 +100,7 @@ public class EstoqueDaoJDBC implements EstoqueDao{
     }
 
     @Override
-    public List<Estoque> procurarPorUnidade(Unidade unidade) {
+    public List<Estoque> procurarPorUnidade(Integer unidade) {
         PreparedStatement st = null;
         ResultSet rs = null;
 
@@ -115,7 +115,7 @@ public class EstoqueDaoJDBC implements EstoqueDao{
                 "INNER JOIN lote "+
                 "ON estoque_vacinas.lote = lote.lote "+
                 "WHERE estoque_vacinas.unidade = ?");
-            st.setInt(1, unidade.getId());
+            st.setInt(1, unidade);
             rs = st.executeQuery();
             List<Estoque> list = new ArrayList<>();
             while(rs.next()){
@@ -134,7 +134,7 @@ public class EstoqueDaoJDBC implements EstoqueDao{
     }
 
     @Override
-    public List<Estoque> procurarPorLote(Lote lote) {
+    public List<Estoque> procurarPorLote(Integer lote) {
         PreparedStatement st = null;
         ResultSet rs = null;
 
@@ -149,7 +149,7 @@ public class EstoqueDaoJDBC implements EstoqueDao{
                 "INNER JOIN lote "+
                 "ON estoque_vacinas.lote = lote.lote "+
                 "WHERE estoque_vacinas.lote = ?");
-            st.setInt(1, lote.getLote());
+            st.setInt(1, lote);
             rs = st.executeQuery();
             List<Estoque> list = new ArrayList<>();
             while(rs.next()){
@@ -201,7 +201,7 @@ public class EstoqueDaoJDBC implements EstoqueDao{
     }
 
     @Override
-    public Estoque procurarPorIdUnidadeLote(Integer unidade, Integer lote) {
+    public Estoque procurarPorUnidadeLote(Integer unidade, Integer lote) {
         PreparedStatement st = null;
         ResultSet rs = null;
 

@@ -42,8 +42,8 @@ public class Movimento {
         this.dataMovimento = dataMovimento;
     }
 
-    public Movimento(Integer id, Unidade unidade,Lote lote,Unidade unidadeTransfer, Integer quantidade,
-            TipoMovimento tipoMovimento,TipoTransacao tipoTransacao,Date dataMovimento) {
+    public Movimento(Integer id, Unidade unidade,Lote lote, Integer quantidade,
+            TipoMovimento tipoMovimento,TipoTransacao tipoTransacao,Date dataMovimento,Unidade unidadeTransfer) {
         this.id = id;
         this.lote = lote;
         this.unidade = unidade;
@@ -137,5 +137,12 @@ public class Movimento {
 
     public void setDataMovimento(Date dataMovimento) {
         this.dataMovimento = dataMovimento;
+    }
+
+    @Override
+    public String toString() {
+        return "Movimento [dataMovimento=" + dataMovimento + ", id=" + id + ", lote=" + lote + ", pessoa=" + pessoa
+                + ", quantidade=" + quantidade + ", tipoMovimento=" + tipoMovimento + ", tipoTransacao=" + tipoTransacao
+                + ", unidade=" + unidade + ", unidadeTransfer=" + unidadeTransfer + "]";
     }
 }
