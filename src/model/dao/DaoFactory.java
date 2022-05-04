@@ -28,4 +28,8 @@ public class DaoFactory {
         return new MovimentoDaoJDBC(DB.getConnection());
     }
 
+    public static VacinadoDao createVacinadoDao(){
+        return new VacinadoDaoJDBC(DB.getConnection());
+    }
+
 }

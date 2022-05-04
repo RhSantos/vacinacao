@@ -243,7 +243,7 @@ public class UnidadeDaoJDBC implements UnidadeDao{
         unidade.setCentro(rs.getBoolean("centro"));
         unidade.setEndereco(endereco);
         return unidade;
-}
+    }
 
     public static Endereco instanciarEndereco(ResultSet rs) throws SQLException {
         Endereco endereco = new Endereco();

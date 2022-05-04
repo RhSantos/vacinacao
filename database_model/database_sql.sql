@@ -145,7 +145,7 @@ ENGINE = InnoDB;
 -- Table `projeto-vacinacao`.`vacinados`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `projeto-vacinacao`.`vacinados` (
-  `dose` INT NOT NULL,
+  `dose` INT NOT NULL AUTO_INCREMENT,
   `pessoa` INT NOT NULL,
   `unidade` INT NOT NULL,
   `lote` INT NOT NULL,
@@ -178,6 +178,21 @@ CREATE TABLE IF NOT EXISTS `projeto-vacinacao`.`vacinados` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+USE `projeto-vacinacao`;
+
+DELIMITER $$
+USE `projeto-vacinacao`$$
+CREATE TRIGGER AutoIncrement BEFORE INSERT ON vacinados
+FOR EACH ROW BEGIN
+        SET NEW.dose = (
+             SELECT IFNULL(MAX(dose), 0) + 1
+             FROM vacinados
+             WHERE pessoa  = NEW.pessoa
+        );
+END$$
+
+
+DELIMITER ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

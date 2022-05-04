@@ -7,24 +7,24 @@ public class Vacinado {
     private Integer dose;
     private Pessoa pessoa;
     private Unidade unidade;
-    private Lote vacina;
+    private Lote lote;
     private Movimento movimento;
     private Date dataVacinacao;
     
-    public Vacinado(Integer dose, Pessoa pessoa, Unidade unidade, Lote vacina, Movimento movimento,
+    public Vacinado(Integer dose, Pessoa pessoa, Unidade unidade, Lote lote, Movimento movimento,
             Date dataVacinacao) {
         this.dose = dose;
         this.pessoa = pessoa;
         this.unidade = unidade;
-        this.vacina = vacina;
+        this.lote = lote;
         this.movimento = movimento;
         this.dataVacinacao = dataVacinacao;
     }
 
-    public Vacinado(Pessoa pessoa, Unidade unidade, Lote vacina, Movimento movimento, Date dataVacinacao) {
+    public Vacinado(Pessoa pessoa, Unidade unidade, Lote lote, Movimento movimento, Date dataVacinacao) {
         this.pessoa = pessoa;
         this.unidade = unidade;
-        this.vacina = vacina;
+        this.lote = lote;
         this.movimento = movimento;
         this.dataVacinacao = dataVacinacao;
     }
@@ -61,20 +61,26 @@ public class Vacinado {
         this.pessoa = pessoa;
     }
 
-    public Lote getVacina() {
-        return vacina;
+    public Lote getLote() {
+        return lote;
     }
 
-    public void setVacina(Lote vacina) {
-        this.vacina = vacina;
+    public void setLote(Lote lote) {
+        this.lote = lote;
     }
 
     public Date getDataVacinacao() {
         return dataVacinacao;
     }
 
-    public void setDataVacinacao(Date dataVacinacao) {
+    public void setDataVacinacao(Date dataLotecao) {
         this.dataVacinacao = dataVacinacao;
+    }
+
+    @Override
+    public String toString() {
+        return "Vacinado [dataVacinacao=" + dataVacinacao + ", dose=" + dose + ", lote=" + lote + ", movimento="
+                + movimento + ", pessoa=" + pessoa + ", unidade=" + unidade + "]";
     }
 
 }

@@ -624,7 +624,7 @@ public class MovimentoDaoJDBC implements MovimentoDao {
         }
     }
 
-    private Pessoa instanciarPessoa(ResultSet rs, Endereco endereco) throws SQLException {
+    public static Pessoa instanciarPessoa(ResultSet rs, Endereco endereco) throws SQLException {
         Pessoa pessoa = new Pessoa();
         pessoa.setId(rs.getInt("pessoa"));
         pessoa.setNome(rs.getString("pesNome"));
@@ -633,7 +633,7 @@ public class MovimentoDaoJDBC implements MovimentoDao {
         return pessoa;
     }
 
-    private Endereco instanciarPesEndereco(ResultSet rs) throws SQLException {
+    public static Endereco instanciarPesEndereco(ResultSet rs) throws SQLException {
         Endereco endereco = new Endereco();
         endereco.setId(rs.getInt("pesEndereco"));
         endereco.setLogradouro(rs.getString("pesLogradouro"));
@@ -646,7 +646,7 @@ public class MovimentoDaoJDBC implements MovimentoDao {
         return endereco;
     }
 
-    private Unidade instanciarUni(ResultSet rs,Endereco endereco) throws SQLException {
+    public static Unidade instanciarUni(ResultSet rs,Endereco endereco) throws SQLException {
         Unidade unidade = new Unidade();
         unidade.setId(rs.getInt("unidade"));
         unidade.setNome(rs.getString("uniNome"));
@@ -655,7 +655,7 @@ public class MovimentoDaoJDBC implements MovimentoDao {
         return unidade;
 }
 
-    private Endereco instanciarUniEndereco(ResultSet rs) throws SQLException {
+    public static Endereco instanciarUniEndereco(ResultSet rs) throws SQLException {
         Endereco endereco = new Endereco();
         endereco.setId(rs.getInt("uniEndereco"));
         endereco.setLogradouro(rs.getString("uniLogradouro"));
@@ -668,7 +668,7 @@ public class MovimentoDaoJDBC implements MovimentoDao {
         return endereco;
     }
 
-    private Unidade instanciarUniTransfer(ResultSet rs,Endereco endereco) throws SQLException {
+    public static Unidade instanciarUniTransfer(ResultSet rs,Endereco endereco) throws SQLException {
         Unidade unidade = new Unidade();
         unidade.setId(rs.getInt("uniTransfer"));
         unidade.setNome(rs.getString("uniTransferNome"));
@@ -677,7 +677,7 @@ public class MovimentoDaoJDBC implements MovimentoDao {
         return unidade;
 }
 
-    private Endereco instanciarUniTransferEndereco(ResultSet rs) throws SQLException {
+    public static Endereco instanciarUniTransferEndereco(ResultSet rs) throws SQLException {
         Endereco endereco = new Endereco();
         endereco.setId(rs.getInt("uniTransferEndereco"));
         endereco.setLogradouro(rs.getString("uniTransferLogradouro"));
