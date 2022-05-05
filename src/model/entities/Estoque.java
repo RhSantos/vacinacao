@@ -61,6 +61,8 @@ public class Estoque implements Serializable{
 
     @Override
     public String toString() {
-        return "Estoque [lote=" + lote + ", quantidade=" + quantidade + ", unidade=" + unidade + "]";
+        String divisoria = "\n>>>>>>>>>>>>>>>>>>>>>>>>\n";
+        return "\nEstoque:"+divisoria+unidade+"\n"
+            +lote+"\nQuantidade: "+quantidade+"\n"+divisoria;
     }
 }

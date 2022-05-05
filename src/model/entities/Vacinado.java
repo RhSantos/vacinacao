@@ -73,7 +73,7 @@ public class Vacinado {
         return dataVacinacao;
     }
 
-    public void setDataVacinacao(Date dataLotecao) {
+    public void setDataVacinacao(Date dataVacinacao) {
         this.dataVacinacao = dataVacinacao;
     }
 

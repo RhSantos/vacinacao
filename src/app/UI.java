@@ -52,6 +52,7 @@ public class UI {
                 case 2:
                     break;
                 case 3:
+                    menuRelatorios();
                     break;
                 default:
                     System.out.println("Essa Opção não Existe!");
@@ -125,6 +126,59 @@ public class UI {
             }
         } catch (ParseException e) {
             System.out.println("Formato da Data Inválida!");;
+        }
+        sc.close();
+    }
+
+    public static void menuRelatorios() throws InterruptedException, IOException{
+        System.out.println();
+        System.out.println();
+        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        System.out.println("\u001B[32m"+"1 - Estoque da Vacina"+"\u001B[0m");
+        System.out.println("\u001B[32m"+"2 - Aplicacao"+"\u001B[0m");
+        System.out.println("\u001B[32m"+"3 - Resumo Aplicacao"+"\u001B[0m");
+        System.out.println("\u001B[32m"+"4 - Pessoas com Esquema Vacinal Incompleto"+"\u001B[0m");
+        System.out.println("Em qualquer tela, digite '-' para voltar ou '0' para sair!");
+        System.out.print("Digite uma Opção do Menu para Navegar: ");
+        Scanner sc = new Scanner(System.in);
+        int opcao = 0;
+        opcaoS = "";
+        try {
+            opcaoS = sc.nextLine();
+            opcao = Integer.parseInt(opcaoS);
+            switch (opcao) {
+                case 0:
+                    sc.close();
+                    System.out.println("Obrigado por usar nosso sistema!");
+                    sleep(2.5);
+                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                    break;
+                case 1:
+                    Relatorios.estoqueVacina();
+                    break;
+                case 2:
+                    Relatorios.aplicacao();
+                    break;
+                case 3:
+                    Relatorios.resumoAplicacao();
+                    break;
+                case 4:
+                    Relatorios.esquemaVacinalImcompleto();
+                    break;
+                default:
+                    System.out.println("Essa Opção não Existe!");
+                    sleep(2.5);
+                    menuRelatorios();
+                    break;
+            }
+        } catch (NumberFormatException e) {
+            if (opcaoS.equals("-"))
+                menu();
+            else {
+                System.out.println("A Opção deve ser apenas Números inteiros!");
+                sleep(2.5);
+                menuRelatorios();
+            }
         }
         sc.close();
     }
