@@ -17,12 +17,13 @@ public class EstoqueSDao {
     }
 
     public static void listarPrint(String filtro){
-        if(listar(filtro) == null){
+        List<Estoque> estoques = listar(filtro);
+        if(estoques == null){
             System.out.println("Filtro Inválido!");
             return;
         } 
         System.out.println();
-        for (Estoque estoque : listar(filtro)) {
+        for (Estoque estoque : estoques) {
             System.out.println(estoque);
         }
     }

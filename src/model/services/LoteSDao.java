@@ -26,12 +26,13 @@ public class LoteSDao {
     }
 
     public static void listarPrint(String filtro){
-        if(listar(filtro) == null){
+        List<Lote> lotes = listar(filtro);
+        if(lotes == null){
             System.out.println("Filtro Inválido!");
             return;
         } 
         System.out.println();
-        for (Lote lote : listar(filtro)) {
+        for (Lote lote : lotes) {
             System.out.println(lote);
         }
     }

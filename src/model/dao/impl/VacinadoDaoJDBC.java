@@ -217,6 +217,37 @@ public class VacinadoDaoJDBC implements VacinadoDao {
     }
 
     @Override
+    public List<Vacinado> procurarPorUnidade(Integer unidade) {
+        PreparedStatement st = null;
+
+        ResultSet rs = null;
+
+        try {
+
+            st = conn.prepareStatement(queryVacinado+="WHERE uni.unidade = ?");
+
+            st.setInt(1, unidade);
+            
+            rs = st.executeQuery();
+
+            List<Vacinado> list = new ArrayList<>();
+            while (rs.next()) {
+                Movimento movimento = instanciarMovimento(rs);
+                list.add(new Vacinado
+                    (rs.getInt(31), 
+                        movimento.getPessoa(), movimento.getUnidade(), 
+                        movimento.getLote(), movimento, movimento.getDataMovimento()));
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+
+    @Override
     public List<Vacinado> listar() {
         PreparedStatement st = null;
 

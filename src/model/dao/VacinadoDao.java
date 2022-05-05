@@ -10,5 +10,6 @@ public interface VacinadoDao {
     void deletar(Integer dose,Integer pessoa);
     Vacinado procurarPorDosePessoa(Integer dose,Integer pessoa);
     List<Vacinado> procurarPorPessoa(Integer pessoa);
+    List<Vacinado> procurarPorUnidade(Integer unidade);
     List<Vacinado> listar();
 }

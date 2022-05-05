@@ -1,5 +1,6 @@
 package model.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Vacinado {
@@ -79,8 +80,11 @@ public class Vacinado {
 
     @Override
     public String toString() {
-        return "Vacinado [dataVacinacao=" + dataVacinacao + ", dose=" + dose + ", lote=" + lote + ", movimento="
-                + movimento + ", pessoa=" + pessoa + ", unidade=" + unidade + "]";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String divisoria = "\n************************\n";
+        return "\nVacinado:"+divisoria+"\nDose: "+dose+"\nPessoa Vacinada: "+pessoa.getNome()+
+            "\nData da Aplicação: "+sdf.format(dataVacinacao)+"\nLote: "+lote.getLote()
+            +"\nNome da Vacina: "+lote.getNome()+"\n"+divisoria;
     }
 
 }

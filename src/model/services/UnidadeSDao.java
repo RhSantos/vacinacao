@@ -48,12 +48,13 @@ public class UnidadeSDao {
     }
 
     public static void listarPrint(String filtro){
-        if(listar(filtro) == null){
+        List<Unidade> unidades = listar(filtro);
+        if(unidades == null){
             System.out.println("Filtro Inválido!");
             return;
         } 
         System.out.println();
-        for (Unidade unidade : listar(filtro)) {
+        for (Unidade unidade : unidades) {
             System.out.println(unidade);
         }
     }

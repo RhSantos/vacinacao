@@ -31,12 +31,13 @@ public class PessoaSDao {
     }
 
     public static void listarPrint(String filtro){
-        if(listar(filtro) == null){
+        List<Pessoa> pessoas = listar(filtro);
+        if(pessoas == null){
             System.out.println("Filtro Inválido!");
             return;
         } 
         System.out.println();
-        for (Pessoa pessoa : listar(filtro)) {
+        for (Pessoa pessoa : pessoas) {
             System.out.println(pessoa);
         }
     }
