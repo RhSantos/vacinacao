@@ -2,14 +2,14 @@ package model.services;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import model.dao.DaoFactory;
 import model.dao.VacinadoDao;
+import model.entities.Pessoa;
 import model.entities.Vacinado;
 
 public class VacinadoSDao {
@@ -102,5 +102,45 @@ public class VacinadoSDao {
             System.out.println();
         }
 
+    }
+
+    private static List<Vacinado> listarVacinalImcompleto(String filtro){
+        if(filtro == "") return vacinadoDao.listar();
+        if(filtro.matches("^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\\s]+$") == true) {
+            return vacinadoDao.listar()
+                .stream()
+                .filter
+                    (e -> e.getPessoa().getEndereco().getBairro().toLowerCase().startsWith(filtro.toLowerCase())).toList();
+        }
+        return null;
+    }
+
+    public static void listarVacinalImcompletoPrint(String filtro){
+
+        List<Vacinado> vacinados = listarVacinalImcompleto(filtro);
+
+        Set<Pessoa> pessoaVacinada = new HashSet<>();
+        
+        List<Vacinado> vacinadosCompleto = new ArrayList<>();
+
+        for (int i = 0; i < vacinados.size(); i++) {
+            if(vacinados.get(i).getDose() >= 3){
+                pessoaVacinada.add(vacinados.get(i).getPessoa());
+            }
+        }
+             
+        for (int i = 0; i < vacinados.size(); i++) {
+            if(pessoaVacinada.contains(vacinados.get(i).getPessoa())){
+                vacinadosCompleto.add(vacinados.get(i));
+            }
+        }
+
+        System.out.println(vacinados.removeAll(vacinadosCompleto));
+
+        System.out.println();
+        
+        for (Vacinado vacinado : vacinados) {
+            System.out.println(vacinado);
+        }
     }
 }

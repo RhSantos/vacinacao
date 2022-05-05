@@ -104,7 +104,6 @@ public class Unidade implements Serializable {
                     System.out.print("Digite o Número: ");
                     numeroS = sc.nextLine();
                     numero = Integer.parseInt(numeroS);
-                }catch(NumberFormatException e){
                     if(numeroS.equals("0")){
                         System.out.println("Obrigado por usar nosso sistema!");
                         UI.sleep(2.5);
@@ -112,7 +111,8 @@ public class Unidade implements Serializable {
                         sc.close();
                         return null;
                     }
-                    else if(numeroS.equals("-")) Cadastro.unidade();
+                }catch(NumberFormatException e){
+                    if(numeroS.equals("-")) Cadastro.unidade();
                     else {
                         System.out.println("A Opção deve ser apenas Números inteiros!");
                         UI.sleep(2.5);

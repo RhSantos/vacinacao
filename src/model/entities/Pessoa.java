@@ -109,7 +109,6 @@ public class Pessoa implements Serializable {
                     System.out.print("Digite o Número: ");
                     numeroS = sc.nextLine();
                     numero = Integer.parseInt(numeroS);
-                }catch(NumberFormatException e){
                     if(numeroS.equals("0")){
                         System.out.println("Obrigado por usar nosso sistema!");
                         UI.sleep(2.5);
@@ -117,7 +116,8 @@ public class Pessoa implements Serializable {
                         sc.close();
                         return null;
                     }
-                    else if(numeroS.equals("-")) Cadastro.pessoa();
+                }catch(NumberFormatException e){
+                    if(numeroS.equals("-")) Cadastro.pessoa();
                     else {
                         System.out.println("A Opção deve ser apenas Números inteiros!");
                         UI.sleep(2.5);
@@ -151,6 +151,43 @@ public class Pessoa implements Serializable {
 
             return endereco;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
+        result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
+        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Pessoa other = (Pessoa) obj;
+        if (cpf == null) {
+            if (other.cpf != null)
+                return false;
+        } else if (!cpf.equals(other.cpf))
+            return false;
+        if (endereco == null) {
+            if (other.endereco != null)
+                return false;
+        } else if (!endereco.equals(other.endereco))
+            return false;
+        if (nome == null) {
+            if (other.nome != null)
+                return false;
+        } else if (!nome.equals(other.nome))
+            return false;
+        return true;
     }
 
     public static boolean voltarOuSairMenu(String s) throws InterruptedException, IOException{
