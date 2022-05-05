@@ -1,5 +1,7 @@
 package model.services;
 
+import java.util.List;
+
 import model.dao.DaoFactory;
 import model.dao.UnidadeDao;
 import model.entities.Unidade;
@@ -24,6 +26,24 @@ public class UnidadeSDao {
                 throw new CadastrarException("ERRO - Endereço já utilizado!");
         }
         unidadeDao.inserir(unidade);
+    }
+
+    private static List<Unidade> listar(String filtro){
+        if(filtro == "") return unidadeDao.listar();
+        if(filtro.matches("^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\\s]+$") == true) {
+            return unidadeDao.listar().stream().filter(e -> e.getNome().toLowerCase().startsWith(filtro.toLowerCase())).toList();
+        }
+        return null;
+    }
+
+    public static void listarPrint(String filtro){
+        if(listar(filtro) == null){
+            System.out.println("Filtro Inválido!");
+            return;
+        } 
+        for (Unidade unidade : listar(filtro)) {
+            System.out.println(unidade);
+        }
     }
 
 }

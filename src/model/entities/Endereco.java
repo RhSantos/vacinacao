@@ -124,9 +124,10 @@ public class Endereco implements Serializable {
 
     @Override
     public String toString() {
-        return "Endereco [bairro=" + bairro + ", cep=" + cep + ", cidade=" + cidade + ", complemento=" + complemento
-                + ", estado=" + estado + ", id=" + id + ", logradouro=" + logradouro + ", numero="
-                + numero + "]";
+        String divisoria = "\n------------------------\n";
+        return "Endereço:"+divisoria+"Logradouro: "+logradouro+"\nCidade: "+cidade+
+            "\nEstado: "+estado+"\nNúmero: "+numero+"\nBairro: "+bairro+"\nComplemento: "+
+            (complemento != null||complemento == ""?complemento:"Sem Complemento")+"\nCep: "+cep+divisoria;
     }
 
     @Override
