@@ -5,25 +5,36 @@ import java.util.List;
 import model.dao.DaoFactory;
 import model.dao.UnidadeDao;
 import model.entities.Unidade;
-import model.exceptions.CadastrarException;
 
 public class UnidadeSDao {
     private static UnidadeDao unidadeDao = DaoFactory.createUnidadeDao();
 
     public static void cadastrar(Unidade unidade){
-        if(unidade == null) 
-            throw new CadastrarException("A Unidade não pode ser nula!");
-        if(unidadeDao.listaCD() == null && unidade.getCentro() == true && unidade.getNome() != "CD")
-            throw new CadastrarException("ERRO - Para Centro de Distribuição utilize o Nome [CD]");
-        if(unidadeDao.listaCD() != null && unidade.getNome().equals("CD"))
-            throw new CadastrarException("ERRO - Nome Reservado ao CD!");
-        if(unidadeDao.listaCD() != null && unidade.getCentro() == true)
-            throw new CadastrarException("ERRO - Centro de Distribuição já cadastrado!");
-        if(unidadeDao.procurarPorNome(unidade.getNome()) != null)
-            throw new CadastrarException("ERRO - Nome de Unidade já utilizado!");
+        if(unidade == null) {
+            System.out.println("A Unidade não pode ser nula!");
+            return;
+        }
+        if(unidadeDao.listaCD() == null && unidade.getCentro() == true && unidade.getNome() != "CD"){
+            System.out.println("ERRO - Para Centro de Distribuição utilize o Nome [CD]");
+            return;
+        }
+        if(unidadeDao.listaCD() != null && unidade.getNome().equals("CD")){
+            System.out.println("ERRO - Nome Reservado ao CD!");
+            return;
+        }
+        if(unidadeDao.listaCD() != null && unidade.getCentro() == true){
+            System.out.println("ERRO - Centro de Distribuição já cadastrado!");
+            return;
+        }
+        if(unidadeDao.procurarPorNome(unidade.getNome()) != null){
+            System.out.println("ERRO - Nome de Unidade já utilizado!");
+            return;
+        }
         for (Unidade unidadeT : unidadeDao.listar()) {
-            if(unidade.getEndereco().equals(unidadeT.getEndereco()))
-                throw new CadastrarException("ERRO - Endereço já utilizado!");
+            if(unidade.getEndereco().equals(unidadeT.getEndereco())){
+                System.out.println("ERRO - Endereço já utilizado!");
+                return;
+            }
         }
         unidadeDao.inserir(unidade);
     }

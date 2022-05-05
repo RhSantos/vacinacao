@@ -1,6 +1,7 @@
 package app;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Scanner;
 
 public class UI {
@@ -106,6 +107,7 @@ public class UI {
                     Cadastro.pessoa();
                     break;
                 case 3:
+                    Cadastro.lote();
                     break;
                 default:
                     System.out.println("Essa Opção não Existe!");
@@ -121,6 +123,8 @@ public class UI {
                 sleep(2.5);
                 menuCadastros();
             }
+        } catch (ParseException e) {
+            System.out.println("Formato da Data Inválida!");;
         }
         sc.close();
     }

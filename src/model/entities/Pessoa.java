@@ -148,7 +148,7 @@ public class Pessoa implements Serializable {
         }
         endereco = new Endereco
         (logradouro, cidade, estado, numero, bairro, complemento, cep);
-        
+
         return endereco;
     }
 
@@ -166,7 +166,7 @@ public class Pessoa implements Serializable {
     @Override
     public String toString() {
         String divisoria = "\n........................\n";
-        return "Populacao:"+divisoria+"ID: "+id
+        return "\nPopulacao:"+divisoria+"ID: "+id
             +"\nNome: "+nome+"\nCpf: "+cpf+"\n"+
             endereco+divisoria;
     }

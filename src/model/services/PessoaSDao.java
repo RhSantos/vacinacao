@@ -5,17 +5,20 @@ import java.util.List;
 import model.dao.DaoFactory;
 import model.dao.PessoaDao;
 import model.entities.Pessoa;
-import model.exceptions.CadastrarException;
 
 public class PessoaSDao {
 
     private static PessoaDao pessoaDao = DaoFactory.createPessoaDao();
 
     public static void cadastrar(Pessoa pessoa){
-        if(pessoa == null) 
-            throw new CadastrarException("A Pessoa não pode ser Nula!");
-        if(pessoaDao.procurarPorCpf(pessoa.getCpf()) != null)
-            throw new CadastrarException("ERRO - CPF já cadastrado!");
+        if(pessoa == null) {
+            System.out.println("A Pessoa não pode ser Nula!");
+            return;
+        }
+        if(pessoaDao.procurarPorCpf(pessoa.getCpf()) != null){
+            System.out.println("ERRO - CPF já cadastrado!");
+            return;
+        }
         pessoaDao.inserir(pessoa);
     }
 

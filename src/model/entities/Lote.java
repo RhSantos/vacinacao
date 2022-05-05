@@ -50,8 +50,9 @@ public class Lote {
     @Override
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return "Lote [dataVencimento=" + sdf.format(dataVencimento) +", lote=" + lote + ", nome=" + nome
-                + "]";
+        String divisoria = "\n________________________\n";
+        return "\nLote:"+divisoria+"ID: "+lote
+            +"\nNome: "+nome+"\nData de Validade: "+sdf.format(dataVencimento)+divisoria;
     }
 
 }
