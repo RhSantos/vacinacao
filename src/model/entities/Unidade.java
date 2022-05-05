@@ -142,8 +142,7 @@ public class Unidade implements Serializable {
         }
         endereco = new Endereco
         (logradouro, cidade, estado, numero, bairro, complemento, cep);
-
-        sc.close();
+    
         return endereco;
     }
 

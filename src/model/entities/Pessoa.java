@@ -141,14 +141,14 @@ public class Pessoa implements Serializable {
         if(complemento == "") complemento = null;
         System.out.print("Digite o CEP (Com Pontuação): ");
         String cep = sc.nextLine();
+        
         if(voltarOuSairMenu(cep)){
             sc.close();
             return null;
         }
         endereco = new Endereco
         (logradouro, cidade, estado, numero, bairro, complemento, cep);
-
-        sc.close();
+        
         return endereco;
     }
 
@@ -167,7 +167,7 @@ public class Pessoa implements Serializable {
     public String toString() {
         String divisoria = "\n........................\n";
         return "Populacao:"+divisoria+"ID: "+id
-            +"\nNome: "+nome+"\nCpf: "+cpf+
+            +"\nNome: "+nome+"\nCpf: "+cpf+"\n"+
             endereco+divisoria;
     }
     

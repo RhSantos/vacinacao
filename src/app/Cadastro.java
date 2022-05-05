@@ -138,7 +138,7 @@ public class Cadastro {
                         return;
                     } else if (nome.equals("-"))
                         pessoa();
-                    System.out.print("Digite seu cpf: ");
+                    System.out.print("Digite seu CPF: ");
                     String cpf = sc.nextLine();
                     if (cpf.equals("0")) {
                         System.out.println("Obrigado por usar nosso sistema!");
@@ -151,7 +151,7 @@ public class Cadastro {
                     Pessoa pessoa = new Pessoa(nome, cpf);
                     EnderecoDao endDao = DaoFactory.createEnderecoDao();
                     endDao.inserir(pessoa.getEndereco());
-                    // PessoaSDao.cadastrar(pessoa);
+                    PessoaSDao.cadastrar(pessoa);
                     voltarOuEncerrar(sc,2);
                     break;
                 case 2:
@@ -159,7 +159,7 @@ public class Cadastro {
                     System.out.println();
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
                     System.out.println("===LISTAGEM DE UNIDADES===");
-                    System.out.print("Digite as iniciais das Unidades (EX: UBS): ");
+                    System.out.print("Digite as Iniciais do Nome: ");
                     String filtro = sc.nextLine();
                     if (filtro.equals("0")) {
                         System.out.println("Obrigado por usar nosso sistema!");
@@ -169,7 +169,7 @@ public class Cadastro {
                         return;
                     } else if (filtro.equals("-"))
                         pessoa();
-                    // PessoaSDao.listarPrint(filtro);
+                    PessoaSDao.listarPrint(filtro);
                     voltarOuEncerrar(sc,2);
                     break;
                 default:
@@ -195,6 +195,7 @@ public class Cadastro {
         while (!comando.equals("-") || !comando.equals("0")) {
             System.out.println("Em qualquer tela, digite '-' para voltar ou '0' para sair!");
             System.out.print("Digite uma Opção: ");
+
             comando = sc.nextLine();
 
             if (comando.equals("0")) {
