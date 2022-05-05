@@ -116,11 +116,11 @@ public class VacinadoSDao {
     }
 
     public static void listarVacinalImcompletoPrint(String filtro){
-
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         List<Vacinado> vacinados = listarVacinalImcompleto(filtro);
 
         Set<Pessoa> pessoaVacinada = new HashSet<>();
-        
+
         List<Vacinado> vacinadosCompleto = new ArrayList<>();
 
         for (int i = 0; i < vacinados.size(); i++) {
@@ -135,12 +135,29 @@ public class VacinadoSDao {
             }
         }
 
-        System.out.println(vacinados.removeAll(vacinadosCompleto));
+        vacinados.removeAll(vacinadosCompleto);
 
         System.out.println();
-        
+        Set<Pessoa> pessoasImcompletas = new HashSet<>();
+        System.out.println("Lista de Pessoas com o Esquema Vacinal Incompleto:");
+        System.out.println();
         for (Vacinado vacinado : vacinados) {
-            System.out.println(vacinado);
+            long dateTime = 0L;
+            for (int i = 0; i < vacinados.size(); i++) {
+                if(vacinado.getDataVacinacao().getTime() > dateTime){
+                    dateTime = vacinado.getDataVacinacao().getTime();
+                }
+            }
+            if(!pessoasImcompletas.contains(vacinado.getPessoa())){
+                System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^");
+                System.out.println();
+                System.out.println("Nome: "+vacinado.getPessoa().getNome());
+                System.out.println("CPF: "+vacinado.getPessoa().getCpf());
+                System.out.println("Data da Última Vacinação: "+sdf.format(new java.util.Date(dateTime)));
+                System.out.println();
+                System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^");
+                pessoasImcompletas.add(vacinado.getPessoa());
+            }
         }
     }
 }
