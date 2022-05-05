@@ -165,7 +165,10 @@ public class Pessoa implements Serializable {
 
     @Override
     public String toString() {
-        return "Pessoa [cpf=" + cpf + ", endereco=" + endereco + ", id=" + id + ", nome=" + nome + "]";
+        String divisoria = "\n........................\n";
+        return "Populacao:"+divisoria+"ID: "+id
+            +"\nNome: "+nome+"\nCpf: "+cpf+
+            endereco+divisoria;
     }
     
 }

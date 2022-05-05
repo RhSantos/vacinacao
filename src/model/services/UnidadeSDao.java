@@ -41,6 +41,7 @@ public class UnidadeSDao {
             System.out.println("Filtro Inválido!");
             return;
         } 
+        System.out.println();
         for (Unidade unidade : listar(filtro)) {
             System.out.println(unidade);
         }

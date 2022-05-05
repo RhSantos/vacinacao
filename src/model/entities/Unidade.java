@@ -150,8 +150,9 @@ public class Unidade implements Serializable {
     @Override
     public String toString() {
         String divisoria = "\n************************\n";
-        return "Unidade:"+divisoria+"Nome: "+nome+(centro == true?"\n--Centro de Distribuição--":"\n")+
-            endereco;
+        return "\nUnidade:"+divisoria+"ID: "+id
+            +"\nNome: "+nome+(centro == true?"\n--Centro de Distribuição--":"\n")+
+            endereco+divisoria;
     }
 
     public static boolean voltarOuSairMenu(String s) throws InterruptedException, IOException{
