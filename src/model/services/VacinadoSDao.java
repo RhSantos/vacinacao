@@ -13,9 +13,9 @@ import model.entities.Pessoa;
 import model.entities.Vacinado;
 
 public class VacinadoSDao {
-    private static VacinadoDao vacinadoDao = DaoFactory.createVacinadoDao();
 
     private static List<Vacinado> listar(String filtro){
+        VacinadoDao vacinadoDao = DaoFactory.createVacinadoDao();
         if(filtro.matches("^([1-9]|[1-9][0-9]|[1-9][0-9][0-9])$") == true) {
             return vacinadoDao.procurarPorUnidade(Integer.parseInt(filtro));
         }
@@ -36,6 +36,7 @@ public class VacinadoSDao {
     }
 
     private static List<Vacinado> listarContagem(String filtro){
+        VacinadoDao vacinadoDao = DaoFactory.createVacinadoDao();
         if(filtro.matches("^([1-9]|[1-9][0-9]|[1-9][0-9][0-9])$") == true) {
             return vacinadoDao.procurarPorUnidade(Integer.parseInt(filtro));
         }
@@ -105,6 +106,7 @@ public class VacinadoSDao {
     }
 
     private static List<Vacinado> listarVacinalImcompleto(String filtro){
+        VacinadoDao vacinadoDao = DaoFactory.createVacinadoDao();
         if(filtro == "") return vacinadoDao.listar();
         if(filtro.matches("^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\\s]+$") == true) {
             return vacinadoDao.listar()
@@ -118,6 +120,9 @@ public class VacinadoSDao {
     public static void listarVacinalImcompletoPrint(String filtro){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         List<Vacinado> vacinados = listarVacinalImcompleto(filtro);
+        if(vacinados == null){
+            return;
+        }
 
         Set<Pessoa> pessoaVacinada = new HashSet<>();
 

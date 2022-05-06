@@ -9,6 +9,6 @@ public interface LoteDao {
     void atualizar(Lote lote);
     void deletar(Integer id);
     Lote procurarPorId(Integer id);
-    Lote procurarPorNome(String nome);
+    List<Lote> procurarPorNome(String nome);
     List<Lote> listar();
 }

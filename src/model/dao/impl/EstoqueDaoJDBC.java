@@ -107,7 +107,7 @@ public class EstoqueDaoJDBC implements EstoqueDao{
         try{
             st = conn.prepareStatement(
                 "SELECT cadastro_unidade.unidade,cadastro_unidade.nome,cadastro_unidade.centro"+
-                ",endereco.*,lote.*,quantidade " +
+                ",endereco.*,lote.lote,lote.nome AS loteNome,lote.data_vencimento,quantidade " +
                 "FROM estoque_vacinas "+ 
                 "INNER JOIN cadastro_unidade "+
                 "ON estoque_vacinas.unidade = cadastro_unidade.unidade "+
@@ -122,7 +122,8 @@ public class EstoqueDaoJDBC implements EstoqueDao{
                 Endereco endereco = UnidadeDaoJDBC.instanciarEndereco(rs);
                 Unidade uniEst = UnidadeDaoJDBC.instanciarUnidade(rs,endereco);
                 Lote lote = LoteDaoJDBC.instanciarLote(rs);
-                list.add(new Estoque(uniEst, lote, rs.getInt(3)));
+                lote.setNome(rs.getString("loteNome"));
+                list.add(new Estoque(uniEst, lote, rs.getInt("quantidade")));
             }
             return list;
         } catch(SQLException e){
@@ -141,7 +142,7 @@ public class EstoqueDaoJDBC implements EstoqueDao{
         try{
             st = conn.prepareStatement(
                 "SELECT cadastro_unidade.unidade,cadastro_unidade.nome,cadastro_unidade.centro"+
-                ",endereco.*,lote.*,quantidade " +
+                ",endereco.*,lote.lote,lote.nome AS loteNome,lote.data_vencimento,quantidade " +
                 "FROM estoque_vacinas "+ 
                 "INNER JOIN cadastro_unidade "+
                 "ON estoque_vacinas.unidade = cadastro_unidade.unidade "+
@@ -156,7 +157,8 @@ public class EstoqueDaoJDBC implements EstoqueDao{
                 Endereco endereco = UnidadeDaoJDBC.instanciarEndereco(rs);
                 Unidade unidade = UnidadeDaoJDBC.instanciarUnidade(rs,endereco);
                 Lote loteEst = LoteDaoJDBC.instanciarLote(rs);
-                list.add(new Estoque(unidade,loteEst, rs.getInt(3)));
+                loteEst.setNome(rs.getString("loteNome"));
+                list.add(new Estoque(unidade,loteEst, rs.getInt("quantidade")));
             }
             return list;
         } catch(SQLException e){
@@ -175,7 +177,7 @@ public class EstoqueDaoJDBC implements EstoqueDao{
         try{
             st = conn.prepareStatement(
                 "SELECT cadastro_unidade.unidade,cadastro_unidade.nome,cadastro_unidade.centro"+
-                ",endereco.*,lote.*,quantidade " +
+                ",endereco.*,lote.lote,lote.nome AS loteNome,lote.data_vencimento,quantidade " +
                 "FROM estoque_vacinas "+ 
                 "INNER JOIN cadastro_unidade "+
                 "ON estoque_vacinas.unidade = cadastro_unidade.unidade "+
@@ -189,7 +191,8 @@ public class EstoqueDaoJDBC implements EstoqueDao{
                 Endereco endereco = UnidadeDaoJDBC.instanciarEndereco(rs);
                 Unidade unidade = UnidadeDaoJDBC.instanciarUnidade(rs,endereco);
                 Lote lote = LoteDaoJDBC.instanciarLote(rs);
-                list.add(new Estoque(unidade, lote, rs.getInt(3)));
+                lote.setNome(rs.getString("loteNome"));
+                list.add(new Estoque(unidade, lote, rs.getInt("quantidade")));
             }
             return list;
         } catch(SQLException e){
@@ -208,7 +211,7 @@ public class EstoqueDaoJDBC implements EstoqueDao{
         try{
             st = conn.prepareStatement(
                 "SELECT cadastro_unidade.unidade,cadastro_unidade.nome,cadastro_unidade.centro"+
-                ",endereco.*,lote.*,quantidade " +
+                ",endereco.*,lote.lote,lote.nome AS loteNome,lote.data_vencimento,quantidade " +
                 "FROM estoque_vacinas "+ 
                 "INNER JOIN cadastro_unidade "+
                 "ON estoque_vacinas.unidade = cadastro_unidade.unidade "+
@@ -224,7 +227,8 @@ public class EstoqueDaoJDBC implements EstoqueDao{
                 Endereco endereco = UnidadeDaoJDBC.instanciarEndereco(rs);
                 Unidade uniEst = UnidadeDaoJDBC.instanciarUnidade(rs,endereco);
                 Lote loteEst = LoteDaoJDBC.instanciarLote(rs);
-                return new Estoque(uniEst, loteEst, rs.getInt(3));
+                loteEst.setNome(rs.getString("loteNome"));
+                return new Estoque(uniEst, loteEst, rs.getInt("quantidade"));
             }
             return null;
         } catch(SQLException e){

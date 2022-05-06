@@ -24,36 +24,56 @@ public class LoteDaoJDBC implements LoteDao{
     @Override
     public void inserir(Lote lote) {
         PreparedStatement st = null;
+        if(lote.getLote() == null){
+            try {   
+                st = conn.prepareStatement(
+                    "INSERT INTO lote "+
+                    "(nome,data_vencimento) "+
+                    "VALUES "+
+                    "(?,?)",
+                    Statement.RETURN_GENERATED_KEYS);
 
-        try {   
-            st = conn.prepareStatement(
-                "INSERT INTO lote "+
-                "(nome,data_vencimento) "+
-                "VALUES "+
-                "(?,?)",
-                Statement.RETURN_GENERATED_KEYS);
+                st.setString(1, lote.getNome());
+                st.setDate(2, new java.sql.Date(lote.getDataVencimento().getTime()));
 
-            st.setString(1, lote.getNome());
-            st.setDate(2, new java.sql.Date(lote.getDataVencimento().getTime()));
+                int rowsAffected = st.executeUpdate();
 
-            int rowsAffected = st.executeUpdate();
-
-            if(rowsAffected > 0){
-                ResultSet rs = st.getGeneratedKeys();
-                if(rs.next()){
-                    int id = rs.getInt(1);          
-                    lote.setLote(id);
+                if(rowsAffected > 0){
+                    ResultSet rs = st.getGeneratedKeys();
+                    if(rs.next()){
+                        int id = rs.getInt(1);          
+                        lote.setLote(id);
+                    }
+                    DB.closeResultSet(rs);
+                } else {
+                    throw new DbException("Unexpected error! No rows affected!");
                 }
-                DB.closeResultSet(rs);
-            } else {
-                throw new DbException("Unexpected error! No rows affected!");
-            }
 
-        } catch (SQLException e) {
-            throw new DbException(e.getMessage());
-        } finally {
-            DB.closeStatement(st);
-        }  
+            } catch (SQLException e) {
+                throw new DbException(e.getMessage());
+            } finally {
+                DB.closeStatement(st);
+            } 
+        }
+        else{
+            try {   
+                st = conn.prepareStatement(
+                    "INSERT INTO lote "+
+                    "(lote,nome,data_vencimento) "+
+                    "VALUES "+
+                    "(?,?,?)");
+    
+                st.setInt(1, lote.getLote());
+                st.setString(2, lote.getNome());
+                st.setDate(3, new java.sql.Date(lote.getDataVencimento().getTime()));
+                
+                st.execute();
+            } catch (SQLException e) {
+                throw new DbException(e.getMessage());
+            } finally {
+                DB.closeStatement(st);
+            }  
+        } 
     }
 
     @Override
@@ -100,22 +120,22 @@ public class LoteDaoJDBC implements LoteDao{
     }
 
     @Override
-    public Lote procurarPorNome(String nome) {
+    public List<Lote> procurarPorNome(String nome) {
         PreparedStatement st = null;
         ResultSet rs = null;
 
         try{
             st = conn.prepareStatement(
-                "SELECT * "+
-                "FROM lote "+
-                "WHERE nome  = ?");
+                "SELECT *"+
+                "FROM lote WHERE nome = ?");
             st.setString(1, nome);
             rs = st.executeQuery();
-            if(rs.next()){
+            List<Lote> list = new ArrayList<>();
+            while(rs.next()){
                 Lote lote = instanciarLote(rs);
-                return lote;
+                list.add(lote);
             }
-            return null;
+            return list;
         } catch(SQLException e){
             throw new DbException(e.getMessage());
         } finally {
@@ -126,6 +146,7 @@ public class LoteDaoJDBC implements LoteDao{
 
     @Override
     public Lote procurarPorId(Integer id) {
+
         PreparedStatement st = null;
         ResultSet rs = null;
 

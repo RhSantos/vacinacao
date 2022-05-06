@@ -15,6 +15,7 @@ public class Relatorios {
         System.out.println();
         System.out.println();
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        System.out.println("=== SISTEMA PARA CONTROLE DE VACINAÇÃO DE SÃO LEOPOLDO ===\n");
         try (Scanner sc = new Scanner(System.in)) {
             Integer id = 0;
             String idS = "";
@@ -41,6 +42,7 @@ public class Relatorios {
                     }
                     if (contemId == false) {
                         System.out.println("ID de Unidade Inexistente - Tente Novamente!");
+                        System.out.println();
                     }
                 } catch (NumberFormatException e) {
                     if (idS.equals("-"))
@@ -62,6 +64,7 @@ public class Relatorios {
         System.out.println();
         System.out.println();
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        System.out.println("=== SISTEMA PARA CONTROLE DE VACINAÇÃO DE SÃO LEOPOLDO ===\n");
         try (Scanner sc = new Scanner(System.in)) {
             Integer id = 0;
             String idS = "";
@@ -86,6 +89,7 @@ public class Relatorios {
                     }
                     if (contemId == false) {
                         System.out.println("ID de Unidade Inexistente - Tente Novamente!");
+                        System.out.println();
                     }
                 } catch (NumberFormatException e) {
                     if (idS.equals("-"))
@@ -106,6 +110,7 @@ public class Relatorios {
         System.out.println();
         System.out.println();
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        System.out.println("=== SISTEMA PARA CONTROLE DE VACINAÇÃO DE SÃO LEOPOLDO ===\n");
         try (Scanner sc = new Scanner(System.in)) {
             Integer id = 0;
             String idS = "";
@@ -151,6 +156,7 @@ public class Relatorios {
         System.out.println();
         System.out.println();
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        System.out.println("=== SISTEMA PARA CONTROLE DE VACINAÇÃO DE SÃO LEOPOLDO ===\n");
         try (Scanner sc = new Scanner(System.in)) {
             String filtro = "";
             System.out.print("Digite as Iniciais do Bairro para Filtrar: ");

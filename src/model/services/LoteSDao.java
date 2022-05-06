@@ -7,9 +7,9 @@ import model.dao.LoteDao;
 import model.entities.Lote;
 
 public class LoteSDao {
-    private static LoteDao loteDao = DaoFactory.createLoteDao();
 
     public static void cadastrar(Lote lote){
+        LoteDao loteDao = DaoFactory.createLoteDao();
         if(lote == null) {
             System.out.println("O Lote não pode ser Nulo!");
             return;
@@ -18,6 +18,7 @@ public class LoteSDao {
     }
 
     private static List<Lote> listar(String filtro){
+        LoteDao loteDao = DaoFactory.createLoteDao();
         if(filtro == "") return loteDao.listar();
         if(filtro.matches("^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\\s]+$") == true) {
             return loteDao.listar().stream().filter(e -> e.getNome().toLowerCase().startsWith(filtro.toLowerCase())).toList();
@@ -35,6 +36,11 @@ public class LoteSDao {
         for (Lote lote : lotes) {
             System.out.println(lote);
         }
+    }
+
+    public static Lote procurarPorId(Integer id) {
+        LoteDao loteDao = DaoFactory.createLoteDao();
+        return loteDao.procurarPorId(id);
     }
 
     

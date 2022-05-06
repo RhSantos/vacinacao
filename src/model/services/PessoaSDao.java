@@ -8,9 +8,8 @@ import model.entities.Pessoa;
 
 public class PessoaSDao {
 
-    private static PessoaDao pessoaDao = DaoFactory.createPessoaDao();
-
     public static void cadastrar(Pessoa pessoa){
+        PessoaDao pessoaDao = DaoFactory.createPessoaDao();
         if(pessoa == null) {
             System.out.println("A Pessoa não pode ser Nula!");
             return;
@@ -23,6 +22,7 @@ public class PessoaSDao {
     }
 
     private static List<Pessoa> listar(String filtro){
+        PessoaDao pessoaDao = DaoFactory.createPessoaDao();
         if(filtro == "") return pessoaDao.listar();
         if(filtro.matches("^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\\s]+$") == true) {
             return pessoaDao.listar().stream().filter(e -> e.getNome().toLowerCase().startsWith(filtro.toLowerCase())).toList();

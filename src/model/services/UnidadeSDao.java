@@ -7,9 +7,9 @@ import model.dao.UnidadeDao;
 import model.entities.Unidade;
 
 public class UnidadeSDao {
-    private static UnidadeDao unidadeDao = DaoFactory.createUnidadeDao();
 
     public static void cadastrar(Unidade unidade){
+        UnidadeDao unidadeDao = DaoFactory.createUnidadeDao();
         if(unidade == null) {
             System.out.println("A Unidade não pode ser nula!");
             return;
@@ -40,6 +40,7 @@ public class UnidadeSDao {
     }
 
     private static List<Unidade> listar(String filtro){
+        UnidadeDao unidadeDao = DaoFactory.createUnidadeDao();
         if(filtro == "") return unidadeDao.listar();
         if(filtro.matches("^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\\s]+$") == true) {
             return unidadeDao.listar().stream().filter(e -> e.getNome().toLowerCase().startsWith(filtro.toLowerCase())).toList();
@@ -57,6 +58,16 @@ public class UnidadeSDao {
         for (Unidade unidade : unidades) {
             System.out.println(unidade);
         }
+    }
+
+    public static Unidade procurarPorId(Integer id){
+        UnidadeDao unidadeDao = DaoFactory.createUnidadeDao();
+        return unidadeDao.procurarPorId(id);
+    }
+
+    public static Unidade listarCd(){
+        UnidadeDao unidadeDao = DaoFactory.createUnidadeDao();
+        return unidadeDao.listaCD();
     }
 
 }

@@ -110,7 +110,7 @@ public class MovimentoDaoJDBC implements MovimentoDao {
 
         try {
             st = conn.prepareStatement(
-                    "INSERT INTO movimento_movimento " +
+                    "INSERT INTO movimento_estoque " +
                             "(unidade,lote,pessoa,quantidade,tipo_movimento" +
                             ",tipo_transacao,data_movimento,unidade_transfer) " +
                             "VALUES " +
