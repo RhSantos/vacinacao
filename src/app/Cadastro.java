@@ -32,7 +32,6 @@ public class Cadastro {
                 opcao = Integer.parseInt(opcaoS);
                 switch (opcao) {
                     case 0:
-                        sc.close();
                         System.out.println("Obrigado por usar nosso sistema!");
                         UI.sleep(2.5);
                         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -53,7 +52,6 @@ public class Cadastro {
                             System.out.println("Obrigado por usar nosso sistema!");
                             UI.sleep(2.5);
                             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                            sc.close();
                             return;
                         } else if (filtro.equals("-"))
                             unidade();
@@ -75,7 +73,6 @@ public class Cadastro {
                     unidade();
                 }
             }
-            sc.close();
         } catch (NoSuchElementException e) {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         }
@@ -93,7 +90,6 @@ public class Cadastro {
             System.out.println("Obrigado por usar nosso sistema!");
             UI.sleep(2.5);
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            sc.close();
             return;
         } else if (nome.equals("-")) {
             if (i == 1) {
@@ -109,7 +105,6 @@ public class Cadastro {
             System.out.println("Obrigado por usar nosso sistema!");
             UI.sleep(2.5);
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            sc.close();
             return;
         } else if (centro == '-') {
             if (i == 1) {
@@ -162,7 +157,6 @@ public class Cadastro {
                 opcao = Integer.parseInt(opcaoS);
                 switch (opcao) {
                     case 0:
-                        sc.close();
                         System.out.println("Obrigado por usar nosso sistema!");
                         UI.sleep(2.5);
                         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -183,7 +177,6 @@ public class Cadastro {
                             System.out.println("Obrigado por usar nosso sistema!");
                             UI.sleep(2.5);
                             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                            sc.close();
                             return;
                         } else if (filtro.equals("-"))
                             pessoa();
@@ -205,7 +198,6 @@ public class Cadastro {
                     pessoa();
                 }
             }
-            sc.close();
         } catch (NoSuchElementException e) {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         }
@@ -223,7 +215,6 @@ public class Cadastro {
             System.out.println("Obrigado por usar nosso sistema!");
             UI.sleep(2.5);
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            sc.close();
             return;
         } else if (nome.equals("-"))
             if(i == 0){
@@ -238,7 +229,6 @@ public class Cadastro {
             System.out.println("Obrigado por usar nosso sistema!");
             UI.sleep(2.5);
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            sc.close();
             return;
         } else if (cpf.equals("-")){
             if(i == 1){
@@ -289,7 +279,6 @@ public class Cadastro {
                 opcao = Integer.parseInt(opcaoS);
                 switch (opcao) {
                     case 0:
-                        sc.close();
                         System.out.println("Obrigado por usar nosso sistema!");
                         UI.sleep(2.5);
                         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -310,7 +299,6 @@ public class Cadastro {
                             System.out.println("Obrigado por usar nosso sistema!");
                             UI.sleep(2.5);
                             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                            sc.close();
                             return;
                         } else if (filtro.equals("-"))
                             lote();
@@ -332,7 +320,6 @@ public class Cadastro {
                     lote();
                 }
             }
-            sc.close();
         } catch (NoSuchElementException e) {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         }
@@ -359,7 +346,6 @@ public class Cadastro {
                         System.out.println("Obrigado por usar nosso sistema!");
                         UI.sleep(2.5);
                         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                        sc.close();
                         return 0;
                     }
                     if (id < 0)
@@ -389,7 +375,6 @@ public class Cadastro {
                 System.out.println("Obrigado por usar nosso sistema!");
                 UI.sleep(2.5);
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                sc.close();
                 return 0;
             } else if (nome.equals("-"))
                 lote();
@@ -404,7 +389,6 @@ public class Cadastro {
                     System.out.println("Obrigado por usar nosso sistema!");
                     UI.sleep(2.5);
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                    sc.close();
                     return 0;
                 } else if (dataVencimento.equals("-"))
                     lote();
@@ -452,7 +436,6 @@ public class Cadastro {
                     System.out.println("Obrigado por usar nosso sistema!");
                     UI.sleep(2.5);
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                    sc.close();
                     return;
                 } else if (comando.equals("-"))
                     if (opcao == 1)

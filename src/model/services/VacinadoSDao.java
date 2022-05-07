@@ -14,6 +14,11 @@ import model.entities.Vacinado;
 
 public class VacinadoSDao {
 
+    public static void cadastrar(Vacinado vacinado) {
+        VacinadoDao vacinadoDao = DaoFactory.createVacinadoDao();
+        vacinadoDao.inserir(vacinado);
+    }
+
     private static List<Vacinado> listar(String filtro){
         VacinadoDao vacinadoDao = DaoFactory.createVacinadoDao();
         if(filtro.matches("^([1-9]|[1-9][0-9]|[1-9][0-9][0-9])$") == true) {
@@ -164,5 +169,10 @@ public class VacinadoSDao {
                 pessoasImcompletas.add(vacinado.getPessoa());
             }
         }
+    }
+
+    public static List<Vacinado> procurarPorPessoa(Integer pessoa){
+        VacinadoDao vacinadoDao = DaoFactory.createVacinadoDao();
+        return vacinadoDao.procurarPorPessoa(pessoa);
     }
 }

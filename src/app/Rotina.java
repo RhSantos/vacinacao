@@ -7,17 +7,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
 import model.dao.DaoFactory;
-import model.dao.EstoqueDao;
 import model.dao.LoteDao;
-import model.dao.MovimentoDao;
 import model.dao.UnidadeDao;
 import model.entities.Estoque;
 import model.entities.Lote;
 import model.entities.Movimento;
 import model.entities.Pessoa;
 import model.entities.Unidade;
+import model.entities.Vacinado;
 import model.enums.TipoMovimento;
 import model.enums.TipoTransacao;
 import model.services.EstoqueSDao;
@@ -25,6 +23,7 @@ import model.services.LoteSDao;
 import model.services.MovimentoSDao;
 import model.services.PessoaSDao;
 import model.services.UnidadeSDao;
+import model.services.VacinadoSDao;
 
 public class Rotina {
     public static void recebimento() throws InterruptedException, IOException, ParseException {
@@ -291,7 +290,6 @@ public class Rotina {
                 Integer id = 0;
                 String idS = "";
                 Pessoa pessoa = null;
-                Unidade unidade = null;
                 Lote lote = null;
                 do {
                     try {
@@ -305,7 +303,7 @@ public class Rotina {
                             return;
                         }
                         pessoa = PessoaSDao.procurarPorId(id);
-                        if (unidade == null) {
+                        if (pessoa == null) {
                             System.out.println("Pessoa Inexistente - Tente Novamente");
                             System.out.println();
                             voltarOuEncerrar(sc);
@@ -337,8 +335,12 @@ public class Rotina {
                         if (lote == null) {
                             System.out.println("Lote Inexistente - Tente Novamente");
                             System.out.println();
-                            id = 0;
-                            idS = "";
+                            voltarOuEncerrar(sc);
+                        }
+                        if(lote.getDataVencimento().getTime()< new Date().getTime()){
+                            System.out.println("Lote Vencido! A Aplicação não será realizada!");
+                            System.out.println();
+                            voltarOuEncerrar(sc);
                         }
                     } catch (NumberFormatException e) {
                         if (idS.equals("-"))
@@ -351,6 +353,13 @@ public class Rotina {
                     }
                 } while (id <= 0);
 
+                List<Estoque> estoques = EstoqueSDao.procurarPorLote(lote);
+                if(estoques.isEmpty()){
+                    System.out.println("Estoque da Vacina Inexistente! A Aplicação não poderá ser feita!");
+                    System.out.println();
+                    voltarOuEncerrar(sc);
+                }
+
                 Unidade cd = UnidadeSDao.listarCd();
 
                 if (cd == null) {
@@ -358,35 +367,48 @@ public class Rotina {
                     voltarOuEncerrar(sc);
                 }
 
-                Estoque estoqueCd = EstoqueSDao.procurarPorUnidadeLote(cd, lote);
+                Estoque estq = null;
 
-                if (estoqueCd == null) {
-                    System.out.println("O Centro de Distribuição não tem o Estoque para esse Lote!");
-                    voltarOuEncerrar(sc);
+                for (Estoque estoque : estoques) {
+                    if(!estoque.getUnidade().equals(cd)){
+                        if(estoque.getQuantidade() == 0){
+                            System.out.println("Estoque da Vacina Vazio! A Aplicação não poderá ser feita!");
+                            System.out.println();
+                            voltarOuEncerrar(sc);
+                        } else{
+                            estq = estoque;
+                            break;
+                        }
+                        
+                    }
                 }
 
-                Integer quantEstoqueCd = estoqueCd.getQuantidade();
+                List<Vacinado> cartelaVacina = VacinadoSDao.procurarPorPessoa(pessoa.getId());
+                Integer maiorDose = 0;
 
-                Estoque estoque = EstoqueSDao.procurarPorUnidadeLote(unidade, lote);
-
-                if (estoque == null) {
-                    Estoque estoqueNovo = new Estoque(unidade.getId(), lote.getLote(), 0);
-                    estoque = estoqueNovo;
-                    EstoqueSDao.cadastrar(estoqueNovo);
+                if(!cartelaVacina.isEmpty()){
+                    for (Vacinado vacinado : cartelaVacina) {
+                        if(vacinado.getDose() == 3){
+                            System.out.println("Pessoa com Esquema de Vacinação Completo!");
+                            System.out.println();
+                            voltarOuEncerrar(sc);
+                        }
+                        if(vacinado.getDose() > maiorDose) maiorDose = vacinado.getDose();
+                    }
                 }
 
-                estoqueCd.setQuantidade(0);
-                EstoqueSDao.atualizar(estoqueCd);
-                Movimento movimento1 = new Movimento(cd, lote, quantEstoqueCd, TipoMovimento.Saida, TipoTransacao.tra,
-                        new Date(), unidade);
-                MovimentoSDao.cadastrar(movimento1);
-                estoque.setQuantidade(quantEstoqueCd += estoque.getQuantidade());
-                EstoqueSDao.atualizar(estoque);
-                Movimento movimento2 = new Movimento(unidade, lote, quantEstoqueCd, TipoMovimento.Entrada,
-                        TipoTransacao.tra,
-                        new Date(), cd);
-                MovimentoSDao.cadastrar(movimento2);
-                System.out.println("Transferencia Concluida com Sucesso!");
+                estq.setQuantidade(estq.getQuantidade()-1);
+                EstoqueSDao.atualizar(estq);
+                Movimento movimento = new Movimento(estq.getUnidade(), lote,pessoa,1, TipoMovimento.Saida, TipoTransacao.apl,
+                        new Date());
+                MovimentoSDao.cadastrar(movimento);
+
+
+
+                Vacinado vacinado = new Vacinado(maiorDose+1, pessoa, estq.getUnidade(), lote, movimento, new Date());
+                VacinadoSDao.cadastrar(vacinado);
+                System.out.println("Aplicacao feita com Sucesso!");
+                System.out.println();
                 voltarOuEncerrar(sc);
             }
         } catch (NoSuchElementException e) {
@@ -406,7 +428,6 @@ public class Rotina {
                 System.out.println("Obrigado por usar nosso sistema!");
                 UI.sleep(2.5);
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                sc.close();
                 return;
             } else if (comando.equals("-"))
                 UI.menuRotina();
