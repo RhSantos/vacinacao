@@ -1,13 +1,8 @@
 package model.entities;
 
 import java.io.IOException;
-import java.io.Serializable;
-import java.util.Scanner;
 
-import app.Cadastro;
-import app.UI;
-
-public class Pessoa implements Serializable {
+public class Pessoa {
     private Integer id;
     private String nome;
     private String cpf;

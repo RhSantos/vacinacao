@@ -1,12 +1,10 @@
 package model.entities;
 
-import java.io.Serializable;
-
 import model.dao.DaoFactory;
 import model.dao.LoteDao;
 import model.dao.UnidadeDao;
 
-public class Estoque implements Serializable{
+public class Estoque{
     private Unidade unidade;
     private Lote lote;
     private Integer quantidade;

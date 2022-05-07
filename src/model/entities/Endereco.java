@@ -1,8 +1,6 @@
 package model.entities;
 
-import java.io.Serializable;
-
-public class Endereco implements Serializable {
+public class Endereco {
     private Integer id;
     private String logradouro;
     private String cidade;
