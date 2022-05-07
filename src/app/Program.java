@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 import model.dao.DaoFactory;
+import model.dao.LoteDao;
 import model.dao.MovimentoDao;
 import model.entities.*;
 import model.enums.TipoTransacao;
@@ -21,7 +22,5 @@ import model.services.UnidadeSDao;
 public class Program {
     public static void main(String[] args) throws IOException, InterruptedException {
         UI.menu();
-        
-        
     }
 }

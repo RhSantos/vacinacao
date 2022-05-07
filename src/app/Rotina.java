@@ -78,39 +78,17 @@ public class Rotina {
                     UI.sleep(1.0);
                     Cadastro.cadastrarUnidade(sc, 2);
                 }
-                String quantS = "";
-                Integer quant = 0;
-                do {
-                    try {
-                        System.out.print("Quantidade de Vacinas para Recebimento: ");
-                        quantS = sc.nextLine();
-                        quant = Integer.parseInt(quantS);
-                        if (quantS.equals("0")) {
-                            System.out.println("Obrigado por usar nosso sistema!");
-                            UI.sleep(2.5);
-                            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                            return;
-                        }
-                    } catch (NumberFormatException e) {
-                        if (quantS.equals("-"))
-                            UI.menuRotina();
-                        else {
-                            System.out.println("A Quantidade não pode ser Negativa!");
-                            UI.sleep(2.5);
-                            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                        }
-                    }
-                } while (quant < 0);
+                
                 Unidade cd = uniDao.listaCD();
-                Movimento movimento = new Movimento(id, cd, lote, quant,
+                Movimento movimento = new Movimento(id, cd, lote, 150,
                         TipoMovimento.Entrada, TipoTransacao.rec, new Date(), null);
                 Estoque estoque = null;
                 if (EstoqueSDao.procurarPorUnidadeLote(cd, lote) == null) {
-                    estoque = new Estoque(cd.getId(), lote.getLote(), quant);
+                    estoque = new Estoque(cd.getId(), lote.getLote(), 150);
                     EstoqueSDao.cadastrar(estoque);
                 } else {
                     estoque = EstoqueSDao.procurarPorUnidadeLote(cd, lote);
-                    estoque.setQuantidade(quant += estoque.getQuantidade());
+                    estoque.setQuantidade(150 + estoque.getQuantidade());
                     EstoqueSDao.atualizar(estoque);
                 }
                 MovimentoSDao.cadastrar(movimento);
@@ -213,6 +191,11 @@ public class Rotina {
                         if(!estoque.getUnidade().equals(unidade)){
                             cd = estoque.getUnidade();
                         }
+                    }
+                    if(cd.equals(unidade)){
+                        System.out.println("Transferencia para o mesmo lugar é inválida!");
+                        System.out.println();
+                        voltarOuEncerrar(sc);
                     }
 
                     List<Movimento> movTeste = MovimentoSDao.procurarPorUnidadeLote(cd.getId(),lote.getLote());
