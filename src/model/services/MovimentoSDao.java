@@ -1,5 +1,7 @@
 package model.services;
 
+import java.util.List;
+
 import model.dao.DaoFactory;
 import model.dao.MovimentoDao;
 import model.entities.Movimento;
@@ -13,5 +15,10 @@ public class MovimentoSDao {
             return;
         }
         movDao.inserir(movimento);
+    }
+
+    public static List<Movimento> procurarPorUnidadeLote(Integer unidade, Integer lote){
+        MovimentoDao movDao = DaoFactory.createMovimentoDao();
+        return movDao.procurarPorUnidadeLote(unidade, lote);
     }
 }

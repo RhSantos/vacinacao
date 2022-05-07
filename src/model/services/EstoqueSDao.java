@@ -41,6 +41,11 @@ public class EstoqueSDao {
         return estoqueDao.procurarPorUnidadeLote(unidade.getId(), lote.getLote());
     }
 
+    public static List<Estoque> procurarPorLote(Lote lote){
+        EstoqueDao estoqueDao = DaoFactory.createEstoqueDao();
+        return estoqueDao.procurarPorLote(lote.getLote());
+    }
+
     public static void listarPrint(String filtro){
         List<Estoque> estoques = listar(filtro);
         if(estoques == null){

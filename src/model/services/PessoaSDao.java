@@ -41,4 +41,9 @@ public class PessoaSDao {
             System.out.println(pessoa);
         }
     }
+
+    public static Pessoa procurarPorId(Integer id){
+        PessoaDao pessoaDao = DaoFactory.createPessoaDao();
+        return pessoaDao.procurarPorId(id);
+    }
 }

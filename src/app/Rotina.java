@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -15,12 +16,14 @@ import model.dao.UnidadeDao;
 import model.entities.Estoque;
 import model.entities.Lote;
 import model.entities.Movimento;
+import model.entities.Pessoa;
 import model.entities.Unidade;
 import model.enums.TipoMovimento;
 import model.enums.TipoTransacao;
 import model.services.EstoqueSDao;
 import model.services.LoteSDao;
 import model.services.MovimentoSDao;
+import model.services.PessoaSDao;
 import model.services.UnidadeSDao;
 
 public class Rotina {
@@ -58,10 +61,12 @@ public class Rotina {
                     }
                 } while (id <= 0);
                 UnidadeDao uniDao = DaoFactory.createUnidadeDao();
-                if (loteDao.procurarPorId(id) == null) {
+                Lote lote = loteDao.procurarPorId(id);
+                if (lote == null) {
                     Cadastro.cadastroLote(sc);
                 }
-                Lote lote = loteDao.procurarPorId(id);
+                lote = loteDao.procurarPorId(id);
+                
                 if (uniDao.listaCD() == null) {
                     System.out.println("Centro de distribuição não encontrado no Sistema!");
                     System.out.print("Indo para Cadastro de Unidade");
@@ -151,8 +156,7 @@ public class Rotina {
                         if (unidade == null) {
                             System.out.println("Unidade Inexistente - Tente Novamente");
                             System.out.println();
-                            id = 0;
-                            idS = "";
+                            voltarOuEncerrar(sc);
                         }
                     } catch (NumberFormatException e) {
                         if (idS.equals("-"))
@@ -181,8 +185,7 @@ public class Rotina {
                         if (lote == null) {
                             System.out.println("Lote Inexistente - Tente Novamente");
                             System.out.println();
-                            id = 0;
-                            idS = "";
+                            voltarOuEncerrar(sc);
                         }
                     } catch (NumberFormatException e) {
                         if (idS.equals("-"))
@@ -195,17 +198,54 @@ public class Rotina {
                     }
                 } while (id <= 0);
 
+                
+
                 Unidade cd = UnidadeSDao.listarCd();
 
                 if (cd == null) {
                     System.out.println("Centro de Distribuição Não Existente!");
+                    System.out.println();
                     voltarOuEncerrar(sc);
+                }
+
+                if(unidade.equals(cd)){
+                    List<Estoque> estoques = EstoqueSDao.procurarPorLote(lote);
+                    for (Estoque estoque : estoques) {
+                        if(!estoque.getUnidade().equals(unidade)){
+                            cd = estoque.getUnidade();
+                        }
+                    }
+
+                    List<Movimento> movTeste = MovimentoSDao.procurarPorUnidadeLote(cd.getId(),lote.getLote());
+
+                    if(!movTeste.isEmpty()){
+                        for (Movimento movimento : movTeste) {
+                            if(movimento.getTipoTransacao() == TipoTransacao.apl){
+                                System.out.println("Você não pode transferir o Lote porque o mesmo já foi aberto!");
+                                System.out.println();
+                                voltarOuEncerrar(sc);
+                            }
+                        }
+                    }
+                }else{
+                    List<Movimento> movTeste = MovimentoSDao.procurarPorUnidadeLote(unidade.getId(),lote.getLote());
+
+                    if(!movTeste.isEmpty()){
+                        for (Movimento movimento : movTeste) {
+                            if(movimento.getTipoTransacao() == TipoTransacao.apl){
+                                System.out.println("Você não pode transferir o Lote porque o mesmo já foi aberto!");
+                                System.out.println();
+                                voltarOuEncerrar(sc);
+                            }
+                        }
+                    }
                 }
 
                 Estoque estoqueCd = EstoqueSDao.procurarPorUnidadeLote(cd, lote);
 
                 if (estoqueCd == null) {
                     System.out.println("O Centro de Distribuição não tem o Estoque para esse Lote!");
+                    System.out.println();
                     voltarOuEncerrar(sc);
                 }
 
@@ -231,6 +271,7 @@ public class Rotina {
                         new Date(), cd);
                 MovimentoSDao.cadastrar(movimento2);
                 System.out.println("Transferencia Concluida com Sucesso!");
+                System.out.println();
                 voltarOuEncerrar(sc);
             }
         } catch (NoSuchElementException e) {
@@ -249,11 +290,12 @@ public class Rotina {
             try (Scanner sc = new Scanner(System.in)) {
                 Integer id = 0;
                 String idS = "";
+                Pessoa pessoa = null;
                 Unidade unidade = null;
                 Lote lote = null;
                 do {
                     try {
-                        System.out.print("Digite o CPF da Pessoa para Rotina de Aplicacao de Vacinas: ");
+                        System.out.print("Digite o ID da Pessoa para Rotina de Aplicacao de Vacinas: ");
                         idS = sc.nextLine();
                         id = Integer.parseInt(idS);
                         if (idS.equals("0")) {
@@ -262,12 +304,11 @@ public class Rotina {
                             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
                             return;
                         }
-                        unidade = UnidadeSDao.procurarPorId(id);
+                        pessoa = PessoaSDao.procurarPorId(id);
                         if (unidade == null) {
-                            System.out.println("Unidade Inexistente - Tente Novamente");
+                            System.out.println("Pessoa Inexistente - Tente Novamente");
                             System.out.println();
-                            id = 0;
-                            idS = "";
+                            voltarOuEncerrar(sc);
                         }
                     } catch (NumberFormatException e) {
                         if (idS.equals("-"))
