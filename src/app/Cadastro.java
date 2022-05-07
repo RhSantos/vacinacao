@@ -18,59 +18,60 @@ public class Cadastro {
             System.out.println();
             System.out.println();
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            Scanner sc = new Scanner(System.in);
             System.out.println("=== SISTEMA PARA CONTROLE DE VACINAÇÃO DE SÃO LEOPOLDO ===\n");
             System.out.println("Cadastro Unidade");
             System.out.println("\u001B[32m" + "       1 - Cadastrar" + "\u001B[0m");
             System.out.println("\u001B[32m" + "       2 - Listar" + "\u001B[0m");
             System.out.println("Em qualquer tela, digite '-' para voltar ou '0' para sair!");
             System.out.print("Digite uma Opção do Menu para Navegar: ");
-            int opcao = 0;
-            opcaoS = "";
-            try {
-                opcaoS = sc.nextLine();
-                opcao = Integer.parseInt(opcaoS);
-                switch (opcao) {
-                    case 0:
-                        System.out.println("Obrigado por usar nosso sistema!");
-                        UI.sleep(2.5);
-                        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                        break;
-                    case 1:
-                        cadastrarUnidade(sc, 1);
-                        voltarOuEncerrar(sc, 1);
-                        break;
-                    case 2:
-                        System.out.println();
-                        System.out.println();
-                        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                        System.out.println("=== SISTEMA PARA CONTROLE DE VACINAÇÃO DE SÃO LEOPOLDO ===\n");
-                        System.out.println("Listar Unidades");
-                        System.out.print("Digite as iniciais das Unidades (EX: UBS): ");
-                        String filtro = sc.nextLine();
-                        if (filtro.equals("0")) {
+            try(Scanner sc = new Scanner(System.in)){
+                int opcao = 0;
+                opcaoS = "";
+                try {
+                    opcaoS = sc.nextLine();
+                    opcao = Integer.parseInt(opcaoS);
+                    switch (opcao) {
+                        case 0:
                             System.out.println("Obrigado por usar nosso sistema!");
                             UI.sleep(2.5);
                             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                            return;
-                        } else if (filtro.equals("-"))
+                            break;
+                        case 1:
+                            cadastrarUnidade(sc, 1);
+                            voltarOuEncerrar(sc, 1);
+                            break;
+                        case 2:
+                            System.out.println();
+                            System.out.println();
+                            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                            System.out.println("=== SISTEMA PARA CONTROLE DE VACINAÇÃO DE SÃO LEOPOLDO ===\n");
+                            System.out.println("Listar Unidades");
+                            System.out.print("Digite as iniciais das Unidades (EX: UBS): ");
+                            String filtro = sc.nextLine();
+                            if (filtro.equals("0")) {
+                                System.out.println("Obrigado por usar nosso sistema!");
+                                UI.sleep(2.5);
+                                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                                return;
+                            } else if (filtro.equals("-"))
+                                unidade();
+                            UnidadeSDao.listarPrint(filtro);
+                            voltarOuEncerrar(sc, 1);
+                            break;
+                        default:
+                            System.out.println("Essa Opção não Existe!");
+                            UI.sleep(2.5);
                             unidade();
-                        UnidadeSDao.listarPrint(filtro);
-                        voltarOuEncerrar(sc, 1);
-                        break;
-                    default:
-                        System.out.println("Essa Opção não Existe!");
+                            break;
+                    }
+                } catch (NumberFormatException e) {
+                    if (opcaoS.equals("-"))
+                        UI.menuCadastros();
+                    else {
+                        System.out.println("A Opção deve ser apenas Números inteiros!");
                         UI.sleep(2.5);
                         unidade();
-                        break;
-                }
-            } catch (NumberFormatException e) {
-                if (opcaoS.equals("-"))
-                    UI.menuCadastros();
-                else {
-                    System.out.println("A Opção deve ser apenas Números inteiros!");
-                    UI.sleep(2.5);
-                    unidade();
+                    }
                 }
             }
         } catch (NoSuchElementException e) {
@@ -143,59 +144,61 @@ public class Cadastro {
             System.out.println();
             System.out.println();
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            Scanner sc = new Scanner(System.in);
+            
             System.out.println("=== SISTEMA PARA CONTROLE DE VACINAÇÃO DE SÃO LEOPOLDO ===\n");
             System.out.println("Cadastro Populacao");
             System.out.println("\u001B[32m" + "       1 - Cadastrar" + "\u001B[0m");
             System.out.println("\u001B[32m" + "       2 - Listar" + "\u001B[0m");
             System.out.println("Em qualquer tela, digite '-' para voltar ou '0' para sair!");
             System.out.print("Digite uma Opção do Menu para Navegar: ");
-            int opcao = 0;
-            opcaoS = "";
-            try {
-                opcaoS = sc.nextLine();
-                opcao = Integer.parseInt(opcaoS);
-                switch (opcao) {
-                    case 0:
-                        System.out.println("Obrigado por usar nosso sistema!");
-                        UI.sleep(2.5);
-                        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                        break;
-                    case 1:
-                        cadastrarPessoa(sc,0);
-                        voltarOuEncerrar(sc, 2);
-                        break;
-                    case 2:
-                        System.out.println();
-                        System.out.println();
-                        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                        System.out.println("=== SISTEMA PARA CONTROLE DE VACINAÇÃO DE SÃO LEOPOLDO ===\n");
-                        System.out.println("Listar Populacao");
-                        System.out.print("Digite as Iniciais do Nome: ");
-                        String filtro = sc.nextLine();
-                        if (filtro.equals("0")) {
+            try(Scanner sc = new Scanner(System.in)){
+                int opcao = 0;
+                opcaoS = "";
+                try {
+                    opcaoS = sc.nextLine();
+                    opcao = Integer.parseInt(opcaoS);
+                    switch (opcao) {
+                        case 0:
                             System.out.println("Obrigado por usar nosso sistema!");
                             UI.sleep(2.5);
                             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                            return;
-                        } else if (filtro.equals("-"))
+                            break;
+                        case 1:
+                            cadastrarPessoa(sc,0);
+                            voltarOuEncerrar(sc, 2);
+                            break;
+                        case 2:
+                            System.out.println();
+                            System.out.println();
+                            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                            System.out.println("=== SISTEMA PARA CONTROLE DE VACINAÇÃO DE SÃO LEOPOLDO ===\n");
+                            System.out.println("Listar Populacao");
+                            System.out.print("Digite as Iniciais do Nome: ");
+                            String filtro = sc.nextLine();
+                            if (filtro.equals("0")) {
+                                System.out.println("Obrigado por usar nosso sistema!");
+                                UI.sleep(2.5);
+                                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                                return;
+                            } else if (filtro.equals("-"))
+                                pessoa();
+                            PessoaSDao.listarPrint(filtro);
+                            voltarOuEncerrar(sc, 2);
+                            break;
+                        default:
+                            System.out.println("Essa Opção não Existe!");
+                            UI.sleep(2.5);
                             pessoa();
-                        PessoaSDao.listarPrint(filtro);
-                        voltarOuEncerrar(sc, 2);
-                        break;
-                    default:
-                        System.out.println("Essa Opção não Existe!");
+                            break;
+                    }
+                } catch (NumberFormatException e) {
+                    if (opcaoS.equals("-"))
+                        UI.menuCadastros();
+                    else {
+                        System.out.println("A Opção deve ser apenas Números inteiros!");
                         UI.sleep(2.5);
                         pessoa();
-                        break;
-                }
-            } catch (NumberFormatException e) {
-                if (opcaoS.equals("-"))
-                    UI.menuCadastros();
-                else {
-                    System.out.println("A Opção deve ser apenas Números inteiros!");
-                    UI.sleep(2.5);
-                    pessoa();
+                    }
                 }
             }
         } catch (NoSuchElementException e) {
@@ -266,58 +269,60 @@ public class Cadastro {
             System.out.println();
             System.out.println();
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Cadastro Lote Vacina");
-            System.out.println("\u001B[32m" + "       1 - Cadastrar" + "\u001B[0m");
-            System.out.println("\u001B[32m" + "       2 - Listar" + "\u001B[0m");
-            System.out.println("Em qualquer tela, digite '-' para voltar ou '0' para sair!");
-            System.out.print("Digite uma Opção do Menu para Navegar: ");
-            int opcao = 0;
-            opcaoS = "";
-            try {
-                opcaoS = sc.nextLine();
-                opcao = Integer.parseInt(opcaoS);
-                switch (opcao) {
-                    case 0:
-                        System.out.println("Obrigado por usar nosso sistema!");
-                        UI.sleep(2.5);
-                        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                        break;
-                    case 1:
-                        int cadastro = cadastroLote(sc);
-                        if (cadastro != 0)
-                            voltarOuEncerrar(sc, 3);
-                        break;
-                    case 2:
-                        System.out.println();
-                        System.out.println();
-                        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                        System.out.println("Listar Lote Vacina");
-                        System.out.print("Digite as Iniciais do Nome da Vacina: ");
-                        String filtro = sc.nextLine();
-                        if (filtro.equals("0")) {
+            
+            try(Scanner sc = new Scanner(System.in)){
+                System.out.println("Cadastro Lote Vacina");
+                System.out.println("\u001B[32m" + "       1 - Cadastrar" + "\u001B[0m");
+                System.out.println("\u001B[32m" + "       2 - Listar" + "\u001B[0m");
+                System.out.println("Em qualquer tela, digite '-' para voltar ou '0' para sair!");
+                System.out.print("Digite uma Opção do Menu para Navegar: ");
+                int opcao = 0;
+                opcaoS = "";
+                try {
+                    opcaoS = sc.nextLine();
+                    opcao = Integer.parseInt(opcaoS);
+                    switch (opcao) {
+                        case 0:
                             System.out.println("Obrigado por usar nosso sistema!");
                             UI.sleep(2.5);
                             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                            return;
-                        } else if (filtro.equals("-"))
+                            break;
+                        case 1:
+                            int cadastro = cadastroLote(sc);
+                            if (cadastro != 0)
+                                voltarOuEncerrar(sc, 3);
+                            break;
+                        case 2:
+                            System.out.println();
+                            System.out.println();
+                            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                            System.out.println("Listar Lote Vacina");
+                            System.out.print("Digite as Iniciais do Nome da Vacina: ");
+                            String filtro = sc.nextLine();
+                            if (filtro.equals("0")) {
+                                System.out.println("Obrigado por usar nosso sistema!");
+                                UI.sleep(2.5);
+                                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                                return;
+                            } else if (filtro.equals("-"))
+                                lote();
+                            LoteSDao.listarPrint(filtro);
+                            voltarOuEncerrar(sc, 3);
+                            break;
+                        default:
+                            System.out.println("Essa Opção não Existe!");
+                            UI.sleep(2.5);
                             lote();
-                        LoteSDao.listarPrint(filtro);
-                        voltarOuEncerrar(sc, 3);
-                        break;
-                    default:
-                        System.out.println("Essa Opção não Existe!");
+                            break;
+                    }
+                } catch (NumberFormatException e) {
+                    if (opcaoS.equals("-"))
+                        UI.menuCadastros();
+                    else {
+                        System.out.println("A Opção deve ser apenas Números inteiros!");
                         UI.sleep(2.5);
                         lote();
-                        break;
-                }
-            } catch (NumberFormatException e) {
-                if (opcaoS.equals("-"))
-                    UI.menuCadastros();
-                else {
-                    System.out.println("A Opção deve ser apenas Números inteiros!");
-                    UI.sleep(2.5);
-                    lote();
+                    }
                 }
             }
         } catch (NoSuchElementException e) {
