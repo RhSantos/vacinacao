@@ -242,10 +242,15 @@ public class Rotina {
         MovimentoSDao.cadastrar(movimento2);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         System.out.println("Transferencia Concluida com Sucesso!");
+        UI.sleep(1.0);
         System.out.println("Imprimindo Informações");
+        UI.sleep(1.0);
         System.out.print(".");
+        UI.sleep(1.0);
         System.out.print(".");
+        UI.sleep(1.0);
         System.out.print(".");
+        UI.sleep(1.0);
         System.out.println("Transferencia de: " + movimento1.getUnidade().getNome());
         System.out.println("Para: " + movimento1.getUnidadeTransfer().getNome());
         System.out.println(estoque.getLote());
@@ -370,12 +375,20 @@ public class Rotina {
 
         Vacinado vacinado = new Vacinado(maiorDose + 1, pessoa, estq.getUnidade(), lote, movimento, new Date());
         VacinadoSDao.cadastrar(vacinado);
-
+        System.out.println("Aplicacao feita com Sucesso!");
+        UI.sleep(1.0);
+        System.out.println("Imprimindo Resultados");
+        UI.sleep(1.0);
+        System.out.print(".");
+        UI.sleep(1.0);
+        System.out.print(".");
+        UI.sleep(1.0);
+        System.out.print(".");
+        UI.sleep(1.0);
         System.out.println("Nome: " + movimento.getPessoa().getNome());
         System.out.println("CPF: " + movimento.getPessoa().getCpf());
         System.out.println("Dose: " + vacinado.getDose());
         System.out.println(movimento.getLote());
-        System.out.println("Aplicacao feita com Sucesso!");
         System.out.println();
         voltarOuEncerrar();
 
