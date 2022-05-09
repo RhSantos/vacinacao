@@ -22,10 +22,6 @@ public class UnidadeSDao {
             System.out.println("ERRO - Nome Reservado ao CD!");
             return 0;
         }
-        if(unidadeDao.listaCD() != null && unidade.getCentro() == true){
-            System.out.println("ERRO - Centro de Distribuição já cadastrado!");
-            return 0;
-        }
         if(unidadeDao.procurarPorNome(unidade.getNome()) != null){
             System.out.println("ERRO - Nome de Unidade já utilizado!");
             return 0;

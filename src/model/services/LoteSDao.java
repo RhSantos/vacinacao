@@ -8,13 +8,14 @@ import model.entities.Lote;
 
 public class LoteSDao {
 
-    public static void cadastrar(Lote lote){
+    public static int cadastrar(Lote lote){
         LoteDao loteDao = DaoFactory.createLoteDao();
         if(lote == null) {
             System.out.println("O Lote não pode ser Nulo!");
-            return;
+            return 0;
         }
         loteDao.inserir(lote);
+        return 1;
     }
 
     private static List<Lote> listar(String filtro){

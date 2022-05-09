@@ -8,17 +8,18 @@ import model.entities.Pessoa;
 
 public class PessoaSDao {
 
-    public static void cadastrar(Pessoa pessoa){
+    public static int cadastrar(Pessoa pessoa){
         PessoaDao pessoaDao = DaoFactory.createPessoaDao();
         if(pessoa == null) {
             System.out.println("A Pessoa não pode ser Nula!");
-            return;
+            return 0;
         }
         if(pessoaDao.procurarPorCpf(pessoa.getCpf()) != null){
             System.out.println("ERRO - CPF já cadastrado!");
-            return;
+            return 0;
         }
         pessoaDao.inserir(pessoa);
+        return 1;
     }
 
     private static List<Pessoa> listar(String filtro){
