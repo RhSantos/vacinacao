@@ -240,7 +240,17 @@ public class Rotina {
                 TipoTransacao.tra,
                 new Date(), cd);
         MovimentoSDao.cadastrar(movimento2);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         System.out.println("Transferencia Concluida com Sucesso!");
+        System.out.println("Imprimindo Informações");
+        System.out.print(".");
+        System.out.print(".");
+        System.out.print(".");
+        System.out.println("Transferencia de: " + movimento1.getUnidade().getNome());
+        System.out.println("Para: " + movimento1.getUnidadeTransfer().getNome());
+        System.out.println(estoque.getLote());
+        System.out.println("Data de Transferencia: " + sdf.format(movimento1.getDataMovimento()));
+        System.out.println("Quantidade de Vacinas: " + estoque.getQuantidade());
         System.out.println();
         voltarOuEncerrar();
 
@@ -257,34 +267,21 @@ public class Rotina {
         String idS = "";
         Pessoa pessoa = null;
         Lote lote = null;
-        do {
-            try {
-                System.out.print("Digite o ID da Pessoa para Rotina de Aplicacao de Vacinas: ");
-                idS = UI.sc.nextLine();
-                id = Integer.parseInt(idS);
-                if (idS.equals("0")) {
-                    System.out.println("Obrigado por usar nosso sistema!");
-                    UI.sleep(2.5);
-                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                    return;
-                }
-                pessoa = PessoaSDao.procurarPorId(id);
-                if (pessoa == null) {
-                    System.out.println("Pessoa Inexistente - Tente Novamente");
-                    System.out.println();
-                    voltarOuEncerrar();
-                }
-            } catch (NumberFormatException e) {
-                if (idS.equals("-"))
-                    UI.menuRotina();
-                else {
-                    System.out.println("A Opção deve ser apenas Números inteiros!");
-                    UI.sleep(2.5);
-                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                }
-            }
-        } while (id <= 0);
-        id = 0;
+        System.out.print("Digite o CPF da Pessoa para Rotina de Aplicacao de Vacinas: ");
+        idS = UI.sc.nextLine();
+        if (idS.equals("0")) {
+            System.out.println("Obrigado por usar nosso sistema!");
+            UI.sleep(2.5);
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            return;
+        } else if (idS.equals("-"))
+            UI.menuRotina();
+
+        pessoa = PessoaSDao.procurarPorCpf(idS);
+
+        if (pessoa == null) {
+            Cadastro.cadastrarPessoa(1);
+        }
         idS = "";
         do {
             try {
@@ -373,6 +370,11 @@ public class Rotina {
 
         Vacinado vacinado = new Vacinado(maiorDose + 1, pessoa, estq.getUnidade(), lote, movimento, new Date());
         VacinadoSDao.cadastrar(vacinado);
+
+        System.out.println("Nome: " + movimento.getPessoa().getNome());
+        System.out.println("CPF: " + movimento.getPessoa().getCpf());
+        System.out.println("Dose: " + vacinado.getDose());
+        System.out.println(movimento.getLote());
         System.out.println("Aplicacao feita com Sucesso!");
         System.out.println();
         voltarOuEncerrar();

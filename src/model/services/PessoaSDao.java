@@ -22,6 +22,11 @@ public class PessoaSDao {
         return 1;
     }
 
+    public static Pessoa procurarPorCpf(String cpf){
+        PessoaDao pessoaDao = DaoFactory.createPessoaDao();
+        return pessoaDao.procurarPorCpf(cpf);
+    }
+
     private static List<Pessoa> listar(String filtro){
         PessoaDao pessoaDao = DaoFactory.createPessoaDao();
         if(filtro == "") return pessoaDao.listar();
