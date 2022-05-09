@@ -26,12 +26,14 @@ public class UnidadeSDao {
             System.out.println("ERRO - Nome de Unidade já utilizado!");
             return 0;
         }
+
         for (Unidade unidadeT : unidadeDao.listar()) {
             if(unidade.getEndereco().equals(unidadeT.getEndereco())){
                 System.out.println("ERRO - Endereço já utilizado!");
                 return 0;
             }
         }
+        
         unidadeDao.inserir(unidade);
         return 1;
     }

@@ -120,10 +120,9 @@ public class Cadastro {
         }
 
         EnderecoDao endDao = DaoFactory.createEnderecoDao();
-        
+        endDao.inserir(unidade.getEndereco());
         int retorno = UnidadeSDao.cadastrar(unidade);
         if (retorno != 0) {
-            endDao.inserir(unidade.getEndereco());
             System.out.println("Unidade Cadastrada com sucesso");
             UI.sleep(1.0);
             System.out.print("Imprimindo Unidade");
@@ -135,6 +134,12 @@ public class Cadastro {
             System.out.println(".");
             UI.sleep(1.0);
             System.out.println(unidade);
+        }else{
+            for (Endereco endereco : endDao.listar()) {
+                if(endereco.equals(unidade.getEndereco())){
+                    endDao.deletar(endereco.getId());
+                }
+            }
         }
 
     }
@@ -242,11 +247,10 @@ public class Cadastro {
             pessoa.setEndereco(InstanciarEndereco.criarEndereco(1));
         }
         EnderecoDao endDao = DaoFactory.createEnderecoDao();
-        
+        endDao.inserir(pessoa.getEndereco());
         int retorno = PessoaSDao.cadastrar(pessoa);
 
         if (retorno != 0) {
-            endDao.inserir(pessoa.getEndereco());
             System.out.println("Pessoa Cadastrada com sucesso");
             UI.sleep(1.0);
             System.out.print("Imprimindo Pessoa");
@@ -258,6 +262,12 @@ public class Cadastro {
             System.out.println(".");
             UI.sleep(1.0);
             System.out.println(pessoa);
+        }else{
+            for (Endereco endereco : endDao.listar()) {
+                if(endereco.equals(pessoa.getEndereco())){
+                    endDao.deletar(endereco.getId());
+                }
+            }
         }
     }
 
