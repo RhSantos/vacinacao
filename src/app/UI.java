@@ -210,7 +210,7 @@ public class UI {
                     Relatorios.resumoAplicacao();
                     break;
                 case 4:
-                    Relatorios.esquemaVacinalImcompleto();
+                    Relatorios.esquemaVacinalIncompleto();
                     break;
                 default:
                     System.out.println("Essa Opção não Existe!");

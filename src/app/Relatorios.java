@@ -145,7 +145,7 @@ public class Relatorios {
 
     }
 
-    public static void esquemaVacinalImcompleto() throws InterruptedException, IOException {
+    public static void esquemaVacinalIncompleto() throws InterruptedException, IOException {
         System.out.println();
         System.out.println();
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
