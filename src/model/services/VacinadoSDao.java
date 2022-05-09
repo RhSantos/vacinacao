@@ -110,7 +110,7 @@ public class VacinadoSDao {
 
     }
 
-    private static List<Vacinado> listarVacinalImcompleto(String filtro){
+    private static List<Vacinado> listarVacinalIncompleto(String filtro){
         VacinadoDao vacinadoDao = DaoFactory.createVacinadoDao();
         if(filtro == "") return vacinadoDao.listar();
         if(filtro.matches("^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\\s]+$") == true) {
@@ -122,9 +122,9 @@ public class VacinadoSDao {
         return null;
     }
 
-    public static void listarVacinalImcompletoPrint(String filtro){
+    public static void listarVacinalIncompletoPrint(String filtro){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        List<Vacinado> vacinados = listarVacinalImcompleto(filtro);
+        List<Vacinado> vacinados = listarVacinalIncompleto(filtro);
         if(vacinados == null){
             return;
         }

@@ -160,7 +160,7 @@ public class Relatorios {
                 return;
             } else if (filtro.equals("-"))
                 UI.menuRelatorios();
-            VacinadoSDao.listarVacinalImcompletoPrint(filtro);
+            VacinadoSDao.listarVacinalIncompletoPrint(filtro);
             voltarOuEncerrar();
         
     }
