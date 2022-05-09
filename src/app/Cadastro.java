@@ -168,7 +168,7 @@ public class Cadastro {
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
                     break;
                 case 1:
-                    cadastrarPessoa(0);
+                    cadastrarPessoa(0,null);
                     voltarOuEncerrar(2);
                     break;
                 case 2:
@@ -207,7 +207,7 @@ public class Cadastro {
         }
     }
 
-    public static void cadastrarPessoa(int i) throws InterruptedException, IOException {
+    public static void cadastrarPessoa(int i,String cpfPes) throws InterruptedException, IOException {
         System.out.println();
         System.out.println();
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -226,20 +226,26 @@ public class Cadastro {
             } else if (i == 1) {
                 UI.menuRotina();
             }
-        System.out.print("Digite seu CPF: ");
-        String cpf = UI.sc.nextLine();
-        if (cpf.equals("0")) {
-            System.out.println("Obrigado por usar nosso sistema!");
-            UI.sleep(2.5);
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            return;
-        } else if (cpf.equals("-")) {
-            if (i == 1) {
-                pessoa();
-            } else if (i == 2) {
-                UI.menuRotina();
+        String cpf = "";
+        if(cpfPes == null){
+            System.out.print("Digite seu CPF: ");
+            cpf = UI.sc.nextLine();
+            if (cpf.equals("0")) {
+                System.out.println("Obrigado por usar nosso sistema!");
+                UI.sleep(2.5);
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                return;
+            } else if (cpf.equals("-")) {
+                if (i == 1) {
+                    pessoa();
+                } else if (i == 2) {
+                    UI.menuRotina();
+                }
             }
+        } else {
+            cpf = cpfPes;
         }
+        
         Pessoa pessoa = new Pessoa(nome, cpf);
         if (i == 0) {
             pessoa.setEndereco(InstanciarEndereco.criarEndereco(0));
@@ -293,7 +299,7 @@ public class Cadastro {
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
                     break;
                 case 1:
-                    int cadastro = cadastroLote();
+                    int cadastro = cadastroLote(null);
                     if (cadastro != 0)
                         voltarOuEncerrar(3);
                     break;
@@ -332,7 +338,7 @@ public class Cadastro {
         }
     }
 
-    public static int cadastroLote() throws InterruptedException, IOException, ParseException {
+    public static int cadastroLote(Integer idLote) throws InterruptedException, IOException, ParseException {
         System.out.println();
         System.out.println();
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -343,37 +349,43 @@ public class Cadastro {
         Boolean contemId = true;
         System.out.println("Cadastro Lote Vacina");
 
-        do {
-            System.out.print("Digite o ID da Vacina: ");
-            try {
-                idS = UI.sc.nextLine();
-                id = Integer.parseInt(idS);
-                if (id == 0) {
-                    System.out.println("Obrigado por usar nosso sistema!");
-                    UI.sleep(2.5);
-                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                    return 0;
+        if(idLote == null){
+            do {
+                System.out.print("Digite o ID da Vacina: ");
+                try {
+                    idS = UI.sc.nextLine();
+                    id = Integer.parseInt(idS);
+                    if (id == 0) {
+                        System.out.println("Obrigado por usar nosso sistema!");
+                        UI.sleep(2.5);
+                        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                        return 0;
+                    }
+                    if (id < 0)
+                        System.out.println("ID Negativo não é válido!");
+                    if (loteDao.procurarPorId(id) != null) {
+                        System.out.println("ID de Lote já utilizado! - Tente Novamente!");
+                        System.out.println();
+                        UI.sleep(2.5);
+                        contemId = true;
+                    } else {
+                        contemId = false;
+                    }
+                } catch (NumberFormatException e) {
+                    if (idS.equals("-"))
+                        lote();
+                    else {
+                        System.out.println("O ID deve ser de apenas Números inteiros!");
+                        UI.sleep(2.5);
+                        cadastroLote(null);
+                    }
                 }
-                if (id < 0)
-                    System.out.println("ID Negativo não é válido!");
-                if (loteDao.procurarPorId(id) != null) {
-                    System.out.println("ID de Lote já utilizado! - Tente Novamente!");
-                    System.out.println();
-                    UI.sleep(2.5);
-                    contemId = true;
-                } else {
-                    contemId = false;
-                }
-            } catch (NumberFormatException e) {
-                if (idS.equals("-"))
-                    lote();
-                else {
-                    System.out.println("O ID deve ser de apenas Números inteiros!");
-                    UI.sleep(2.5);
-                    cadastroLote();
-                }
-            }
-        } while (contemId == true || id <= 0);
+            } while (contemId == true || id <= 0);
+        } else{
+            id = idLote;
+        }
+
+        
 
         System.out.print("Digite o nome da Vacina: ");
         String nome = UI.sc.nextLine();
