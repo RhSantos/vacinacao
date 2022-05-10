@@ -43,7 +43,7 @@ public class Rotina {
                     System.out.println("Obrigado por usar nosso sistema!");
                     UI.sleep(2.5);
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                    return;
+                    System.exit(0);
                 }
             } catch (NumberFormatException e) {
                 if (idS.equals("-"))
@@ -117,7 +117,7 @@ public class Rotina {
                     System.out.println("Obrigado por usar nosso sistema!");
                     UI.sleep(2.5);
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                    return;
+                    System.exit(0);
                 }
                 unidade = UnidadeSDao.procurarPorId(id);
                 if (unidade == null) {
@@ -146,7 +146,7 @@ public class Rotina {
                     System.out.println("Obrigado por usar nosso sistema!");
                     UI.sleep(2.5);
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                    return;
+                    System.exit(0);
                 }
                 lote = LoteSDao.procurarPorId(id);
                 if (lote == null) {
@@ -279,7 +279,7 @@ public class Rotina {
             System.out.println("Obrigado por usar nosso sistema!");
             UI.sleep(2.5);
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            return;
+            System.exit(0);
         } else if (idS.equals("-"))
             UI.menuRotina();
 
@@ -299,7 +299,7 @@ public class Rotina {
                     System.out.println("Obrigado por usar nosso sistema!");
                     UI.sleep(2.5);
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                    return;
+                    System.exit(0);
                 }
                 lote = LoteSDao.procurarPorId(id);
                 if (lote == null) {
@@ -409,7 +409,7 @@ public class Rotina {
                 System.out.println("Obrigado por usar nosso sistema!");
                 UI.sleep(2.5);
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                return;
+                System.exit(0);
             } else if (comando.equals("-"))
                 UI.menuRotina();
             else {

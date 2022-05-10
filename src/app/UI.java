@@ -44,6 +44,7 @@ public class UI {
                     System.out.println("Obrigado por usar nosso sistema!");
                     sleep(2.5);
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                    System.exit(0);
                     break;
                 case 1:
                     menuCadastros();
@@ -69,7 +70,6 @@ public class UI {
                 menu();
             }
         }
-
     }
 
     public static void menuCadastros() throws InterruptedException, IOException {
@@ -98,6 +98,7 @@ public class UI {
                     System.out.println("Obrigado por usar nosso sistema!");
                     sleep(2.5);
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                    System.exit(0);
                     break;
                 case 1:
                     Cadastro.unidade();
@@ -148,6 +149,7 @@ public class UI {
                     System.out.println("Obrigado por usar nosso sistema!");
                     sleep(2.5);
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                    System.exit(0);
                     break;
                 case 1:
                     Rotina.recebimento();
@@ -199,6 +201,7 @@ public class UI {
                     System.out.println("Obrigado por usar nosso sistema!");
                     sleep(2.5);
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                    System.exit(0);
                     break;
                 case 1:
                     Relatorios.estoqueVacina();

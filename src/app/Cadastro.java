@@ -31,6 +31,7 @@ public class Cadastro {
                     System.out.println("Obrigado por usar nosso sistema!");
                     UI.sleep(2.5);
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                    System.exit(0);
                     break;
                 case 1:
                     cadastrarUnidade(1);
@@ -48,7 +49,7 @@ public class Cadastro {
                         System.out.println("Obrigado por usar nosso sistema!");
                         UI.sleep(2.5);
                         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                        return;
+                        System.exit(0);
                     } else if (filtro.equals("-"))
                         unidade();
                     UnidadeSDao.listarPrint(filtro);
@@ -83,7 +84,7 @@ public class Cadastro {
             System.out.println("Obrigado por usar nosso sistema!");
             UI.sleep(2.5);
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            return;
+            System.exit(0);
         } else if (nome.equals("-")) {
             if (i == 1) {
                 unidade();
@@ -99,7 +100,7 @@ public class Cadastro {
             System.out.println("Obrigado por usar nosso sistema!");
             UI.sleep(2.5);
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            return;
+            System.exit(0);
         } else if (centro == '-') {
             if (i == 1) {
                 unidade();
@@ -166,6 +167,7 @@ public class Cadastro {
                     System.out.println("Obrigado por usar nosso sistema!");
                     UI.sleep(2.5);
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                    System.exit(0);
                     break;
                 case 1:
                     cadastrarPessoa(0,null);
@@ -219,7 +221,7 @@ public class Cadastro {
             System.out.println("Obrigado por usar nosso sistema!");
             UI.sleep(2.5);
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            return;
+            System.exit(0);
         } else if (nome.equals("-"))
             if (i == 0) {
                 pessoa();
@@ -234,7 +236,7 @@ public class Cadastro {
                 System.out.println("Obrigado por usar nosso sistema!");
                 UI.sleep(2.5);
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                return;
+                System.exit(0);
             } else if (cpf.equals("-")) {
                 if (i == 1) {
                     pessoa();
@@ -297,6 +299,7 @@ public class Cadastro {
                     System.out.println("Obrigado por usar nosso sistema!");
                     UI.sleep(2.5);
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                    System.exit(0);
                     break;
                 case 1:
                     int cadastro = cadastroLote(null);
@@ -359,7 +362,7 @@ public class Cadastro {
                         System.out.println("Obrigado por usar nosso sistema!");
                         UI.sleep(2.5);
                         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                        return 0;
+                        System.exit(0);
                     }
                     if (id < 0)
                         System.out.println("ID Negativo não é válido!");
@@ -393,7 +396,7 @@ public class Cadastro {
             System.out.println("Obrigado por usar nosso sistema!");
             UI.sleep(2.5);
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            return 0;
+            System.exit(0);
         } else if (nome.equals("-"))
             lote();
 
@@ -407,7 +410,7 @@ public class Cadastro {
                 System.out.println("Obrigado por usar nosso sistema!");
                 UI.sleep(2.5);
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                return 0;
+                System.exit(0);
             } else if (dataVencimento.equals("-"))
                 lote();
 
@@ -451,7 +454,7 @@ public class Cadastro {
                 System.out.println("Obrigado por usar nosso sistema!");
                 UI.sleep(2.5);
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                return;
+                System.exit(0);
             } else if (comando.equals("-"))
                 if (opcao == 1)
                     unidade();

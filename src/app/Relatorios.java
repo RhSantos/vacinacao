@@ -30,7 +30,7 @@ public class Relatorios {
                     System.out.println("Obrigado por usar nosso sistema!");
                     UI.sleep(2.5);
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                    return;
+                    System.exit(0);
                 }
                 List<Unidade> unidades = uniDao.listar();
                 for (Unidade unidade : unidades) {
@@ -74,7 +74,7 @@ public class Relatorios {
                     System.out.println("Obrigado por usar nosso sistema!");
                     UI.sleep(2.5);
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                    return;
+                    System.exit(0);
                 }
                 List<Unidade> unidades = uniDao.listar();
                 for (Unidade unidade : unidades) {
@@ -119,7 +119,7 @@ public class Relatorios {
                     System.out.println("Obrigado por usar nosso sistema!");
                     UI.sleep(2.5);
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                    return;
+                    System.exit(0);
                 }
                 List<Unidade> unidades = uniDao.listar();
                 for (Unidade unidade : unidades) {
@@ -157,7 +157,7 @@ public class Relatorios {
                 System.out.println("Obrigado por usar nosso sistema!");
                 UI.sleep(2.5);
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                return;
+                System.exit(0);
             } else if (filtro.equals("-"))
                 UI.menuRelatorios();
             VacinadoSDao.listarVacinalIncompletoPrint(filtro);
@@ -177,7 +177,7 @@ public class Relatorios {
                 System.out.println("Obrigado por usar nosso sistema!");
                 UI.sleep(2.5);
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-                return;
+                System.exit(0);
             } else if (comando.equals("-"))
                 UI.menuRelatorios();
             else {
